@@ -37,31 +37,34 @@ class Jogador{
   		glBegin(GL_TRIANGLES); 
   		glVertex3f(-3.5,0.0,0.0);
   		glVertex3f(+3.5,0.0,0.0);
-  		glVertex3f(0.0,0.0,3.0);
-      	glScalef(20,20,20);
+  		glVertex3f(0.0,3.0,0.0);
   		glEnd();
+
+  		/* cauda */
+		glBegin(GL_POLYGON); 
+		glVertex3f(0.0,-0.5,0.0);
+		glVertex3f(0.0,-1.5,1.5);
+		glVertex3f(0.0,-0.5,1.5);
+		glVertex3f(0.0,1.5,0.0);
+		glEnd();
   		
+  		glColor3ub(255,255,0);
   		/* corpo */
   		GLUquadricObj *quadric;
   		quadric = gluNewQuadric();
+  		glRotatef(90.0f, 1.0f, 0.0f, 0.0f);
+  		glTranslatef(0.0,0.0,-3.7);
   		gluCylinder(quadric, 0.5, 0.5, 4, 12, 3);
   		
   		/* nariz */
   		glPushMatrix();
-  		glTranslatef(0,0,4);
+  		glRotatef(180.0f, 1.0f, 0.0f, 0.0f);
+  		//glTranslatef(0,0,4);
   		glutSolidCone(0.5, 1.5, 12, 3);
   		glPopMatrix();
 		
-		/* cauda */
-		glBegin(GL_POLYGON); 
-		glVertex3f(0.0,0.0,0.0);
-		glVertex3f(0.0,2.0,-1.0);
-		glVertex3f(0.0,2.0,0.0);
-		glVertex3f(0.0,0.0,2.0);
-		glEnd();
-	
 	  	/* cabine do piloto */
-	  	glTranslatef(0,0.3,3.5);
+	  	glTranslatef(0,0.3,0.5);
 	  	glPushMatrix();
       	glScalef(0.7,0.7,2.0);
       	glColor3f(0.3,0.5,1);
