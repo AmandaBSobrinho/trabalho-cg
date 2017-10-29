@@ -31,9 +31,220 @@ class Inimigo{
 	}
 	
 	void carregar(){
-		
-		glColor3ub( 0, 0, 0);
-		glutSolidCube(30.0);
+
+		int inimigo = 1 + (rand() % 2);
+
+		if (inimigo == 1) { // inimigo é um navio
+
+			glScalef(20,20,20);
+			
+			glColor3ub(128,128,128); //DEFINE cor (R, G, B e percentual de transparência para o objeto)
+
+		   	/* base */
+	      	glPushMatrix();
+	      	glBegin(GL_POLYGON); 
+	      	glVertex3f(0.0,0.0,0.0);
+	      	glVertex3f(5.0,0.0,0.0);
+	      	glVertex3f(5.0,3.0,0.0);
+	      	glVertex3f(0.0,3.0,0.0);
+	      	glEnd();
+	      	glPopMatrix();
+
+	      	glPushMatrix();
+	      	glBegin(GL_POLYGON); 
+	      	glVertex3f(5.0,0.0,0.0);
+	      	glVertex3f(5.0,3.0,0.0);
+	      	glVertex3f(6.0,3.0,2.5);
+	      	glVertex3f(6.0,0.0,2.5);
+	      	glEnd();
+	      	glPopMatrix();
+
+	      	glPushMatrix();
+	      	glBegin(GL_POLYGON); 
+	      	glVertex3f(0.0,0.0,0.0);
+	      	glVertex3f(0.0,3.0,0.0);
+	      	glVertex3f(-1.0,3.0,2.5);
+	      	glVertex3f(-1.0,0.0,2.5);
+	      	glEnd();
+	      	glPopMatrix();
+
+	      	glColor3ub(169,169,169);
+	      	glPushMatrix();
+	      	glBegin(GL_POLYGON); 
+	      	glVertex3f(6.0,3.0,2.5);
+	      	glVertex3f(6.0,0.0,2.5);
+	      	glVertex3f(-1.0,0.0,2.5);
+	      	glVertex3f(-1.0,3.0,2.5);
+	      	glEnd();
+	      	glPopMatrix();
+	      
+	      	glColor3ub(105,105,105);
+	      	glPushMatrix();
+	      	glBegin(GL_POLYGON); 
+	      	glVertex3f(5.0,3.0,0.0);
+	      	glVertex3f(6.0,3.0,2.5);
+	      	glVertex3f(-1.0,3.0,2.5);
+	      	glVertex3f(0.0,3.0,0.0);
+	      	glEnd();
+	      	glPopMatrix();
+	 
+	      	glPushMatrix();
+	      	glBegin(GL_POLYGON); 
+	      	glVertex3f(5.0,0.0,0.0);
+	      	glVertex3f(6.0,0.0,2.5);
+	      	glVertex3f(-1.0,0.0,2.5);
+	      	glVertex3f(0.0,0.0,0.0);
+	      	glEnd();
+	      	glPopMatrix();
+
+	  		/*meio*/
+	      	glColor3ub(128,0,0);
+	      	glPushMatrix();
+	      	glBegin(GL_POLYGON); 
+	      	glVertex3f(0.0,0.5,2.5);
+	      	glVertex3f(0.0,0.5,4.0);
+	      	glVertex3f(5.0,0.5,4.0);
+	      	glVertex3f(5.0,0.5,2.5);
+	      	glEnd();
+	      	glPopMatrix();
+
+	      	glPushMatrix();
+	      	glBegin(GL_POLYGON); 
+	      	glVertex3f(5.0,0.5,2.5);
+	      	glVertex3f(5.0,2.5,2.5);
+	      	glVertex3f(5.0,2.5,4.0);
+	      	glVertex3f(5.0,0.5,4.0);
+	      	glEnd();
+	      	glPopMatrix();
+
+	      	glPushMatrix();
+	      	glBegin(GL_POLYGON); 
+	      	glVertex3f(0.0,0.5,2.5);
+	      	glVertex3f(0.0,2.5,2.5);
+	      	glVertex3f(0.0,2.5,4.0);
+	      	glVertex3f(0.0,0.5,4.0);
+	      	glEnd();
+	      	glPopMatrix();
+			  
+	      	glPushMatrix();
+	      	glBegin(GL_POLYGON); 
+	      	glVertex3f(0.0,2.5,2.5);
+	      	glVertex3f(0.0,2.5,4.0);
+	      	glVertex3f(5.0,2.5,4.0);
+	      	glVertex3f(5.0,2.5,2.5);
+	      	glEnd();
+	      	glPopMatrix();
+
+	      	glColor3ub(165,42,42);
+	      	glPushMatrix();
+	      	glBegin(GL_POLYGON); 
+	      	glVertex3f(0.0,0.5,4.0);
+	      	glVertex3f(5.0,0.5,4.0);
+	      	glVertex3f(5.0,2.5,4.0);
+	      	glVertex3f(0.0,2.5,4.0);
+	      	glEnd();
+	      	glPopMatrix();
+
+	      	/*janelas*/
+	      	/*glColor3ub(30,144,255);
+	      	glPushMatrix();
+	      	glBegin(GL_POLYGON); 
+	      	glVertex3f(0.5,0.5,2.5);
+	      	glVertex3f(4.5,0.5,2.5);
+	      	glVertex3f(4.5,0.5,3.75);
+	      	glVertex3f(0.5,0.5,3.75);
+	      	glEnd();
+	      	glPopMatrix();
+
+	      	glPushMatrix();
+	      	glBegin(GL_POLYGON); 
+	      	glVertex3f(0.5,2.5,2.5);
+	      	glVertex3f(4.5,2.5,2.5);
+	      	glVertex3f(4.5,2.5,3.75);
+	      	glVertex3f(0.5,2.5,3.75);
+	      	glEnd();
+	      	glPopMatrix();*/
+
+	      	/* chaminés */
+	      	glColor3ub(211,211,211);
+	      	glPushMatrix();
+	      	GLUquadricObj *quadric;
+	      	quadric = gluNewQuadric();
+	      	glTranslatef(1.0,1.5,3.0);
+	      	gluCylinder(quadric, 0.5, 0.5, 3, 12, 3);
+	      	glPopMatrix();
+
+	      	glColor3ub(0,0,0);
+	      	glPushMatrix();
+	      	glTranslatef(1.0,1.5,6.0);
+	      	gluDisk(quadric, 0.0, 0.5, 30, 1);
+	      	glPopMatrix();
+
+	      	glColor3ub(211,211,211);
+	      	glPushMatrix();
+	      	quadric = gluNewQuadric();
+	      	glTranslatef(4.0,1.5,3.0);
+	      	gluCylinder(quadric, 0.5, 0.5, 3, 12, 3);
+	      	glPopMatrix();
+
+	      	glColor3ub(0,0,0);
+	      	glPushMatrix();
+	      	glTranslatef(4.0,1.5,6.0);
+	      	gluDisk(quadric, 0.0, 0.5, 30, 1);
+	      	glPopMatrix();
+	    }
+
+	    else { // inimigo é um helicóptero
+
+	    	glScalef(20,20,20);
+
+	    	glColor3ub(135,206,235); //DEFINE cor (R, G, B e percentual de transparência para o objeto)
+
+		    /* cabine do piloto */
+		    glPushMatrix();
+		    glScalef(1.5,1.0,1.0);
+		    glutSolidSphere(1.0, 20, 20);
+		    glPopMatrix();
+
+		    /*base hélice*/
+		    glColor3ub(211,211,211);
+		    glPushMatrix();
+		    GLUquadricObj *quadric;
+		    quadric = gluNewQuadric();
+		    glScalef(0.5,0.5,0.5);
+		    gluCylinder(quadric, 0.3, 0.3, 2.5, 12, 3);
+		    glPopMatrix();
+
+		    /*hélice superior*/
+		    glColor3ub(128,128,128);
+		    glPushMatrix();
+		    glTranslatef(0.0,1.25,1.3);
+		    glRotatef(90.0f, 1.0f, 0.0f, 0.0f);
+		    glScalef(0.5,0.1,0.5);
+		    gluCylinder(quadric, 0.3, 0.3, 5.0, 12, 3);
+		    glPopMatrix();
+
+		    /*cauda*/
+		    glColor3ub(211,211,211);
+		    glPushMatrix();
+		    glRotatef(90.0f, 0.0f, 1.0f, 0.0f);
+		    gluCylinder(quadric, 0.3, 0.15, 4.0, 12, 3);
+		    glPopMatrix();
+
+		    glPushMatrix();
+		    glTranslatef(4.0,0.0,0.0);
+		    glRotatef(90.0f, 0.0f, 1.0f, 0.0f);
+		    gluDisk(quadric, 0.0, 0.15, 30, 1);
+		    glPopMatrix();
+
+		    /*hélice cauda*/
+		    glColor3ub(128,128,128);
+		    glPushMatrix();
+		    glTranslatef(4.0,0.2,-0.75);
+		    glScalef(0.4,0.1,0.3);
+		    gluCylinder(quadric, 0.3, 0.3, 5.0, 12, 3);
+		    glPopMatrix();
+		}
 		
 	}
 	
@@ -49,7 +260,6 @@ class Inimigo{
 	}
 	
 	float aleatorio(int a, int b, float c){
-	
 		return (float) ((rand() % a + 1) - b  )*c;
 	}
 	

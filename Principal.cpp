@@ -85,10 +85,9 @@ int main(int argc,char **argv){
 void controles (unsigned char key, int x, int y){
 
 	if (key=='d'){
-
 		mov = p1.velocidade;
-
-	}else if (key=='a'){
+	}
+	else if (key=='a'){
 
 		mov = -p1.velocidade;
 

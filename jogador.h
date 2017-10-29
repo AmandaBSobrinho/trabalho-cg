@@ -48,8 +48,8 @@ class Jogador{
 		glVertex3f(0.0,1.5,0.0);
 		glEnd();
   		
-  		glColor3ub(255,255,0);
   		/* corpo */
+  		glColor3ub(192,192,192);
   		GLUquadricObj *quadric;
   		quadric = gluNewQuadric();
   		glRotatef(90.0f, 1.0f, 0.0f, 0.0f);
@@ -57,6 +57,7 @@ class Jogador{
   		gluCylinder(quadric, 0.5, 0.5, 4, 12, 3);
   		
   		/* nariz */
+  		glColor3ub(169,169,169);
   		glPushMatrix();
   		glRotatef(180.0f, 1.0f, 0.0f, 0.0f);
   		//glTranslatef(0,0,4);
