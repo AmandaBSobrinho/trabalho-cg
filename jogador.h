@@ -6,6 +6,9 @@ class Jogador{
 	float pos_z;
 	float limite;
 	float velocidade;
+	float escala;
+	float largura;
+	float altura;
 	
 	Jogador(int s){
 		
@@ -15,21 +18,36 @@ class Jogador{
 		limite = s/2;
 		
 		velocidade = 4.0f;
+
+		escala = 8.0f;
+
+		altura = 3.5f * escala;
+		largura = 3.5f * escala;
 		
 	};
 	
-	void transladar_aviao(){
+	void transladar(){
 
 		glPushMatrix();
 		glTranslatef(pos_x, pos_y, pos_z);
-		carregar_aviao();
+		carregar();
 		glPopMatrix();
 
 	}
 	
-	void carregar_aviao(){
+	void carregar(){
 
-      	glScalef(20,20,20);
+      	glScalef(escala, escala, escala);
+
+/* box test
+      	glColor3ub(0,0,0);
+		glBegin(GL_POLYGON); 
+		glVertex3f(-largura,altura,-5.0);
+		glVertex3f(-largura,-altura,-5.0);
+		glVertex3f(largura,-altura,-5.0);
+		glVertex3f(largura,altura,-5.0);
+		glEnd();
+*/
 		
 		glColor3ub(128,128,128); //DEFINE cor (R, G, B e percentual de transparência para o objeto)
 
@@ -83,7 +101,7 @@ class Jogador{
 			pos_x = limite;
 		}
 		
-		transladar_aviao();
+		transladar();
 		glutPostRedisplay();
 	}
 	

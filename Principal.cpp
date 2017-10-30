@@ -27,8 +27,12 @@ void loop_jogo(){
 	glutKeyboardFunc(controles);
 	p1.movimentar(mov);
 
-	for(int i=0; i<n; i++)
+	for(int i=0; i<n; i++){
 		t[i].movimentar(t[i].velocidade);
+
+		if(t[i].colidir(p1.pos_x, p1.pos_y, p1.largura, p1.altura))
+			t[i].reset();
+	}
 
 	mov = 0.0f;
 }
@@ -44,7 +48,7 @@ void DISPLAY (){
 	glEnable(GL_SMOOTH);
 	glEnable(GL_BLEND);
 
-	glClearColor(1.0, 1.0, 1.0, 0.0);
+	glClearColor(0.0, 0.0, 1.0, 0.0);
 
 	glMatrixMode(GL_PROJECTION);
 	glLoadIdentity();
