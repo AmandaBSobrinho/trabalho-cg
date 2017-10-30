@@ -39,15 +39,15 @@ class Jogador{
 
       	glScalef(escala, escala, escala);
 
-/* box test
+/* box test */
       	glColor3ub(0,0,0);
 		glBegin(GL_POLYGON); 
-		glVertex3f(-largura,altura,-5.0);
-		glVertex3f(-largura,-altura,-5.0);
-		glVertex3f(largura,-altura,-5.0);
-		glVertex3f(largura,altura,-5.0);
+		glVertex3f(-largura/escala,altura/escala, 0.0);
+		glVertex3f(-largura/escala,-altura/escala, 0.0);
+		glVertex3f(largura/escala,-altura/escala, 0.0);
+		glVertex3f(largura/escala,altura/escala, 0.0);
 		glEnd();
-*/
+
 		
 		glColor3ub(128,128,128); //DEFINE cor (R, G, B e percentual de transparência para o objeto)
 

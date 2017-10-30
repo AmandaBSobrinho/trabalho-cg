@@ -83,7 +83,8 @@ class Inimigo{
 	bool colidir(float x, float y, float l, float a){
 
 		if(pos_y < 0 && y + a >= pos_y - altura)
-			return true;
+			if(x + largura >= pos_x - largura && x - largura <= pos_x + largura )
+				return true;
 
 		return false;
 
@@ -96,10 +97,10 @@ class Inimigo{
 /* box test */
       	glColor3ub(0,0,0);
 		glBegin(GL_POLYGON); 
-		glVertex3f(-largura/escala,altura/escala,5.0);
-		glVertex3f(-largura/escala,-altura/escala,5.0);
-		glVertex3f(largura/escala,-altura/escala,5.0);
-		glVertex3f(largura/escala,altura/escala,5.0);
+		glVertex3f(-largura/escala,altura/escala, 0.0);
+		glVertex3f(-largura/escala,-altura/escala, 0.0);
+		glVertex3f(largura/escala,-altura/escala, 0.0);
+		glVertex3f(largura/escala,altura/escala, 0.0);
 		glEnd();
 
 
