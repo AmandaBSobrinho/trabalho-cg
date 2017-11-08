@@ -21,10 +21,13 @@ Inimigo t[5];
 Jogador p1 = Jogador(screen_size);
 float mov = 0.0f;
 
-void controles (unsigned char key, int x, int y);
+void keypress (unsigned char key, int x, int y);
+void keyup (unsigned char key, int x, int y);
 void loop_jogo(){
 
-	glutKeyboardFunc(controles);
+	glutKeyboardFunc(keypress);
+	glutKeyboardUpFunc(keyup);
+
 	p1.movimentar(mov);
 
 	for(int i=0; i<n; i++){
@@ -34,7 +37,6 @@ void loop_jogo(){
 			t[i].reset();
 	}
 
-	mov = 0.0f;
 }
 
 void DISPLAY (){
@@ -86,18 +88,30 @@ int main(int argc,char **argv){
 }
 
 
-void controles (unsigned char key, int x, int y){
+void keypress (unsigned char key, int x, int y){
 
 	if (key=='d'){
 		mov = p1.velocidade;
+		p1.movimentando = 1;
 	}
 	else if (key=='a'){
 
 		mov = -p1.velocidade;
+		p1.movimentando = -1;
 
 	}else if (key==27){ exit(0); }
 
 	glutPostRedisplay();
 }
 
+void keyup (unsigned char key, int x, int y) {
+
+	if(key=='d' || key=='a'){
+		p1.movimentando = 0;
+		mov = 0.0f;
+	}
+
+	glutPostRedisplay();
+
+}
 

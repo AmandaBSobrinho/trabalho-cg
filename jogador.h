@@ -9,6 +9,8 @@ class Jogador{
 	float escala;
 	float largura;
 	float altura;
+
+	int movimentando;
 	
 	Jogador(int s){
 		
@@ -23,6 +25,8 @@ class Jogador{
 
 		altura = 3.5f * escala;
 		largura = 3.5f * escala;
+
+		movimentando = 0;
 		
 	};
 	
@@ -30,6 +34,12 @@ class Jogador{
 
 		glPushMatrix();
 		glTranslatef(pos_x, pos_y, pos_z);
+
+		if(movimentando > 0)
+			glRotatef(45.0f, 0.0f, 1.0f, 0.0f);
+		else if(movimentando < 0)
+			glRotatef(-45.0f, 0.0f, 1.0f, 0.0f);
+
 		carregar();
 		glPopMatrix();
 
