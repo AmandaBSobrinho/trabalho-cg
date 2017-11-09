@@ -9,7 +9,7 @@ class Inimigo{
 	//Limite da tela utilizada
 	float limite;
 
-	//velocidade da movimentação do inimigo em Y
+	//velocidade da movimentação do inimigo em X
 	float velocidade;
 	
 	//Escala do tamanho do inimigo
@@ -38,7 +38,8 @@ class Inimigo{
 		limite = s;
 
 		//Definição da velocidade inicial do inimigo em Y
-		velocidade = aleatorio(5, 0, -0.1f);
+		//velocidade = aleatorio(5, 0, -0.1f);
+		velocidade = 0;
 
 		//Definição da escala do inimigo
 		escala = 10.0f;
@@ -106,18 +107,6 @@ class Inimigo{
 		
 		velocidade = aleatorio(5, 0, -0.1f);
 		
-	}
-
-	//Cálculo da colisão
-	//obs: refazer, definir colisão na classe jogador
-	bool colidir(float x, float y, float l, float a){
-
-		if(pos_y < 0 && y + a >= pos_y - altura)
-			if(x + largura >= pos_x - largura && x - largura <= pos_x + largura )
-				return true;
-
-		return false;
-
 	}
 
 	void desenhar_navio(){

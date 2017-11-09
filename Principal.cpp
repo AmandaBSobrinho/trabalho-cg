@@ -8,6 +8,7 @@
 
 #include "jogador.h"
 #include "inimigo.h"
+#include "mapa.h"
 
 void DISPLAY ();
 int main(int argc,char **argv);
@@ -15,9 +16,10 @@ float aleatorio_x();
 
 
 int screen_size = 600;
-int n = 5;
-Inimigo t[5];
+int n = 1;
+Inimigo t[1];
 Jogador p1 = Jogador(screen_size);
+Mapa map = Mapa(screen_size);
 float mov = 0.0f;
 
 void keypress (unsigned char key, int x, int y);
@@ -34,11 +36,13 @@ void loop_jogo(){
 	p1.movimentar(mov);
 
 	for(int i=0; i<n; i++){
-		t[i].movimentar(t[i].velocidade);
+		t[i].movimentar(map.velocidade);
 
-		if(t[i].colidir(p1.pos_x, p1.pos_y, p1.largura, p1.altura))
+		if(p1.colidir(t[i].pos_x, t[i].pos_y, t[i].largura, t[i].altura))
 			t[i].reset();
 	}
+
+	map.atualizar();
 
 }
 
@@ -65,7 +69,7 @@ void DISPLAY (){
 	glLoadIdentity();
 
 	//Camera
-	gluLookAt( 0, 20, 50, 0, 0, 0, 0, 1, 0);
+	gluLookAt( 0, 0, 50, 0, 0, 0, 0, 1, 0);
 	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 
 	//Chamada para a serapação do Loop do jogo

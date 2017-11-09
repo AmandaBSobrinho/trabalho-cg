@@ -25,7 +25,7 @@ class Jogador{
 		
 		//posição inicial no centro inferior da tela		
 		pos_x = 1.0f;
-		pos_y = -250.0f;
+		pos_y = -280.0f;
 		pos_z = 1.0f;
 
 		//Definição do limite da tela.
@@ -64,6 +64,17 @@ class Jogador{
 		glPopMatrix();
 
 	}
+
+	//Cálculo da colisão
+	bool colidir(float x, float y, float l, float a){
+
+		if(y < 0 && pos_y + altura >= y - a)
+			if(pos_x + l >= x - l && pos_x - l <= x + l )
+				return true;
+
+		return false;
+
+	}
 	
 	//Desenha o avião do jogador baseado na escala
 	void desenhar(){
@@ -71,13 +82,13 @@ class Jogador{
       	glScalef(escala, escala, escala);
 
 		/* caixa preta para teste de colisão */
-      	glColor3ub(0,0,0);
+      	/*glColor3ub(0,0,0);
 		glBegin(GL_POLYGON); 
 		glVertex3f(-largura/escala,altura/escala, 0.0);
 		glVertex3f(-largura/escala,-altura/escala, 0.0);
 		glVertex3f(largura/escala,-altura/escala, 0.0);
 		glVertex3f(largura/escala,altura/escala, 0.0);
-		glEnd();
+		glEnd();*/
 
 		
 		glColor3ub(128,128,128); //DEFINE cor (R, G, B e percentual de transparência para o objeto)
