@@ -1,55 +1,76 @@
 class Jogador{
 	
 	public:
+	//Posições atuais
 	float pos_x;
 	float pos_y;
 	float pos_z;
+
+	//Limite da tela utilizada
 	float limite;
+
+	//velocidade de movimentação do jogador em X
 	float velocidade;
+	//Escala do tamanho do jogador
 	float escala;
+
+	//Largura e altura para interpretar as colisões
 	float largura;
 	float altura;
 
+	//Estado que indica se está movimentando ou não, para animação: 0-parado, -1-esquerda, 1-direita
 	int movimentando;
 	
 	Jogador(int s){
 		
+		//posição inicial no centro inferior da tela		
 		pos_x = 1.0f;
 		pos_y = -250.0f;
 		pos_z = 1.0f;
+
+		//Definição do limite da tela.
 		limite = s/2;
 		
+		//Definição da velocidade inicial do jogador em X
 		velocidade = 4.0f;
 
+		//Definição da escala do jogador
 		escala = 8.0f;
 
+		//Cálculo de largura e altura baseada na escala
 		altura = 3.5f * escala;
 		largura = 3.5f * escala;
 
+		//Estado inicial de movimentação = 0-parado
 		movimentando = 0;
 		
 	};
 	
-	void transladar(){
+	//Atualiza o desenho, transaladando e/ou rotacionando
+	void atualizar_desenho(){
 
 		glPushMatrix();
+		//Translada o desenho para a posição atual
 		glTranslatef(pos_x, pos_y, pos_z);
 
+		//De acordo com o estado movimentando direciona o avião
 		if(movimentando > 0)
 			glRotatef(45.0f, 0.0f, 1.0f, 0.0f);
 		else if(movimentando < 0)
 			glRotatef(-45.0f, 0.0f, 1.0f, 0.0f);
 
-		carregar();
+		//Desenha o avião
+		desenhar();
 		glPopMatrix();
 
 	}
 	
-	void carregar(){
+	//Desenha o avião do jogador baseado na escala
+	void desenhar(){
 
       	glScalef(escala, escala, escala);
 
-/* box test */
+		/* caixa preta para teste de colisão */
       	glColor3ub(0,0,0);
 		glBegin(GL_POLYGON); 
 		glVertex3f(-largura/escala,altura/escala, 0.0);
@@ -102,6 +123,7 @@ class Jogador{
 
 	}
 	
+	//Movimenta o avião até o limite da camera
 	void movimentar(float x){
 		
 		pos_x += x;
@@ -111,7 +133,7 @@ class Jogador{
 			pos_x = limite;
 		}
 		
-		transladar();
+		atualizar_desenho();
 		glutPostRedisplay();
 	}
 	

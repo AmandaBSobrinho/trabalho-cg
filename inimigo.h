@@ -1,15 +1,25 @@
 class Inimigo{
 	
 	public:
+	//Posições atuais
 	float pos_x;
 	float pos_y;
 	float pos_z;
+
+	//Limite da tela utilizada
 	float limite;
+
+	//velocidade da movimentação do inimigo em Y
 	float velocidade;
+	
+	//Escala do tamanho do inimigo
 	float escala;
+
+	//Largura e altura para interpretar as colisões
 	float largura;
 	float altura;
 
+	//Tipo do inimigo: 1-Navio, 0-Helicoptero
 	int tipo_inimigo;
 	
 	Inimigo(){
@@ -17,44 +27,60 @@ class Inimigo{
 	}
 	
 	Inimigo(int s){
-		
-		escala = 10.0f;
-		largura = 3.0f * escala;
-		altura = 2.5f * escala;
-		tipo_inimigo = 1;
 
+		//Posição inicial do inimigo
+		//Atualmente todos iniciam no topo da tela e aleatoriamente em x
 		pos_x = aleatorio(60, 30, 10);
 		pos_y = 300.0f;
 		pos_z = 1.0f;
+
+		//Definição do limite da tela.
 		limite = s;
-		
+
+		//Definição da velocidade inicial do inimigo em Y
 		velocidade = aleatorio(5, 0, -0.1f);
+
+		//Definição da escala do inimigo
+		escala = 10.0f;
+
+		//Cálculo de largura e altura baseada na escala
+		largura = 3.0f * escala;
+		altura = 2.5f * escala;
+
+		//Tipo de inimigo, atualmente fixo em 1 = navio
+		tipo_inimigo = 1;
 		
 	};
 	
-	void transladar(){
+	//Atualiza o desenho, transaladando e/ou rotacionando
+	void atualizar_desenho(){
 
 		glPushMatrix();
+		//Translada o desenho para a posição atual
 		glTranslatef(pos_x, pos_y, pos_z);
-		carregar();
+
+		//Desenha o inimigo
+		desenhar();
 		glPopMatrix();
 
 	}
 	
-	void carregar(){
+	//Desenha o inimigo baseado na escala e tipo de inimigo
+	void desenhar(){
 
 		if (tipo_inimigo == 1) { // inimigo é um navio
 
-			carregar_navio();
+			desenhar_navio();
 	    }
 
 	    else { // inimigo é um helicóptero
 
-	    	carregar_helicoptero();
+	    	desenhar_helicoptero();
 		}
 		
 	}
 	
+	//Movimenta o inimigo até o limite da camera
 	void movimentar(float y){
 		
 		pos_y += y;
@@ -62,14 +88,16 @@ class Inimigo{
 			reset();
 		}
 		
-		transladar();
+		atualizar_desenho();
 		glutPostRedisplay();
 	}
 	
+	//Função para gerar um número aleatorio baseado em 3 parametros
 	float aleatorio(int a, int b, float c){
 		return (float) ((rand() % a + 1) - b  )*c;
 	}
 	
+	//Reinicializa a posição do inimigo, reutilizando o objeto ja criado
 	void reset(){
 		
 		pos_x = aleatorio(60, 30, 10);
@@ -80,6 +108,8 @@ class Inimigo{
 		
 	}
 
+	//Cálculo da colisão
+	//obs: refazer, definir colisão na classe jogador
 	bool colidir(float x, float y, float l, float a){
 
 		if(pos_y < 0 && y + a >= pos_y - altura)
@@ -90,11 +120,10 @@ class Inimigo{
 
 	}
 
-	void carregar_navio(){
+	void desenhar_navio(){
 		glScalef(escala, escala, escala);
 			
-
-/* box test */
+		/* Caixa preta para teste de colisao */
       	glColor3ub(0,0,0);
 		glBegin(GL_POLYGON); 
 		glVertex3f(-largura/escala,altura/escala, 0.0);
@@ -241,7 +270,7 @@ class Inimigo{
       	glPopMatrix();
 	}
 
-	void carregar_helicoptero(){
+	void desenhar_helicoptero(){
 		glScalef(escala, escala, escala);
 
     	glColor3ub(135,206,235); //DEFINE cor (R, G, B e percentual de transparência para o objeto)
