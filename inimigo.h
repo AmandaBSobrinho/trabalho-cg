@@ -49,7 +49,7 @@ class Inimigo{
 		altura = 2.5f * escala;
 
 		//Tipo de inimigo, atualmente fixo em 1 = navio
-		tipo_inimigo = 1;
+		tipo_inimigo = 0;
 		
 	};
 	
@@ -110,8 +110,9 @@ class Inimigo{
 	}
 
 	void desenhar_navio(){
+		
 		glScalef(escala, escala, escala);
-			
+
 		/* Caixa preta para teste de colisao */
       	glColor3ub(0,0,0);
 		glBegin(GL_POLYGON); 
@@ -121,92 +122,91 @@ class Inimigo{
 		glVertex3f(largura/escala,altura/escala, 0.0);
 		glEnd();
 
-
 		glColor3ub(128,128,128); //DEFINE cor (R, G, B e percentual de transparência para o objeto)
 
 		glPushMatrix();
 
 	   	/* base */
       	glBegin(GL_POLYGON); 
-      	glVertex3f(0.0,0.0,0.0);
-      	glVertex3f(5.0,0.0,0.0);
-      	glVertex3f(5.0,3.0,0.0);
-      	glVertex3f(0.0,3.0,0.0);
+      	glVertex3f(-2.5,-1.5,0.0);
+      	glVertex3f(2.5,-1.5,0.0);
+      	glVertex3f(2.5,1.5,0.0);
+      	glVertex3f(-2.5,1.5,0.0);
       	glEnd();
       	
       	glBegin(GL_POLYGON); 
-      	glVertex3f(5.0,0.0,0.0);
-      	glVertex3f(5.0,3.0,0.0);
-      	glVertex3f(6.0,3.0,2.5);
-      	glVertex3f(6.0,0.0,2.5);
+      	glVertex3f(2.5,-1.5,0.0);
+      	glVertex3f(2.5,1.5,0.0);
+      	glVertex3f(3.5,1.5,2.5);
+      	glVertex3f(3.5,-1.5,2.5);
       	glEnd();
       	
       	glBegin(GL_POLYGON); 
-      	glVertex3f(0.0,0.0,0.0);
-      	glVertex3f(0.0,3.0,0.0);
-      	glVertex3f(-1.0,3.0,2.5);
-      	glVertex3f(-1.0,0.0,2.5);
+      	glVertex3f(-2.5,-1.5,0.0);
+      	glVertex3f(-2.5,1.5,0.0);
+      	glVertex3f(-3.5,1.5,2.5);
+      	glVertex3f(-3.5,-1.5,2.5);
       	glEnd();
       	
       	glColor3ub(169,169,169);
       	glBegin(GL_POLYGON); 
-      	glVertex3f(6.0,3.0,2.5);
-      	glVertex3f(6.0,0.0,2.5);
-      	glVertex3f(-1.0,0.0,2.5);
-      	glVertex3f(-1.0,3.0,2.5);
+      	glVertex3f(3.5,1.5,2.5);
+      	glVertex3f(3.5,-1.5,2.5);
+      	glVertex3f(-3.5,-1.5,2.5);
+      	glVertex3f(-3.5,1.5,2.5);
       	glEnd();
       	
       	glColor3ub(105,105,105);
       	glBegin(GL_POLYGON); 
-      	glVertex3f(5.0,3.0,0.0);
-      	glVertex3f(6.0,3.0,2.5);
-      	glVertex3f(-1.0,3.0,2.5);
-      	glVertex3f(0.0,3.0,0.0);
+      	glVertex3f(2.5,1.5,0.0);
+      	glVertex3f(3.5,1.5,2.5);
+      	glVertex3f(-3.5,1.5,2.5);
+      	glVertex3f(-2.5,1.5,0.0);
       	glEnd();
       	
       	glBegin(GL_POLYGON); 
-      	glVertex3f(5.0,0.0,0.0);
-      	glVertex3f(6.0,0.0,2.5);
-      	glVertex3f(-1.0,0.0,2.5);
-      	glVertex3f(0.0,0.0,0.0);
+      	glVertex3f(2.5,-1.5,0.0);
+      	glVertex3f(3.5,-1.5,2.5);
+      	glVertex3f(-3.5,-1.5,2.5);
+      	glVertex3f(-2.5,-1.5,0.0);
       	glEnd();
       	
   		/*meio*/
       	glColor3ub(128,0,0);
       	glBegin(GL_POLYGON); 
-      	glVertex3f(0.0,0.5,2.5);
-      	glVertex3f(0.0,0.5,4.0);
-      	glVertex3f(5.0,0.5,4.0);
-      	glVertex3f(5.0,0.5,2.5);
+      	glVertex3f(-2.5,-1.0,2.5);
+      	glVertex3f(-2.5,-1.0,4.0);
+      	glVertex3f(2.5,-1.0,4.0);
+      	glVertex3f(2.5,-1.0,2.5);
       	glEnd();
       	
       	glBegin(GL_POLYGON); 
-      	glVertex3f(5.0,0.5,2.5);
-      	glVertex3f(5.0,2.5,2.5);
-      	glVertex3f(5.0,2.5,4.0);
-      	glVertex3f(5.0,0.5,4.0);
+      	glVertex3f(2.5,-1.0,2.5);
+      	glVertex3f(2.5,1.0,2.5);
+      	glVertex3f(2.5,1.0,4.0);
+      	glVertex3f(2.5,-1.0,4.0);
       	glEnd();
       	
       	glBegin(GL_POLYGON); 
-      	glVertex3f(0.0,0.5,2.5);
-      	glVertex3f(0.0,2.5,2.5);
-      	glVertex3f(0.0,2.5,4.0);
-      	glVertex3f(0.0,0.5,4.0);
+      	glVertex3f(-2.5,-1.0,2.5);
+      	glVertex3f(-2.5,1.0,2.5);
+      	glVertex3f(-2.5,1.0,4.0);
+      	glVertex3f(-2.5,-1.0,4.0);
       	glEnd();
       	  
       	glBegin(GL_POLYGON); 
-      	glVertex3f(0.0,2.5,2.5);
-      	glVertex3f(0.0,2.5,4.0);
-      	glVertex3f(5.0,2.5,4.0);
-      	glVertex3f(5.0,2.5,2.5);
+      	glVertex3f(-2.5,1.0,2.5);
+      	glVertex3f(-2.5,1.0,4.0);
+      	glVertex3f(2.5,1.0,4.0);
+      	glVertex3f(2.5,1.0,2.5);
       	glEnd();
       	
       	glColor3ub(165,42,42);
       	glBegin(GL_POLYGON); 
-      	glVertex3f(0.0,0.5,4.0);
-      	glVertex3f(5.0,0.5,4.0);
-      	glVertex3f(5.0,2.5,4.0);
-      	glVertex3f(0.0,2.5,4.0);
+      	glVertex3f(-2.5,-1.0,4.0);
+      	glVertex3f(2.5,-1.0,4.0);
+      	glVertex3f(2.5,1.0,4.0);
+      	glVertex3f(-2.5,1.0,4.0);
       	glEnd();
       	
       	glPopMatrix();
@@ -214,19 +214,19 @@ class Inimigo{
       	/*glColor3ub(30,144,255);
       	glPushMatrix();
       	glBegin(GL_POLYGON); 
-      	glVertex3f(0.5,0.5,2.5);
-      	glVertex3f(4.5,0.5,2.5);
-      	glVertex3f(4.5,0.5,3.75);
-      	glVertex3f(0.5,0.5,3.75);
+      	glVertex3f(-2.0,-1.0,2.5);
+      	glVertex3f(2.0,-1.0,2.5);
+      	glVertex3f(2.0,-1.0,3.75);
+      	glVertex3f(-2.0,-1.0,3.75);
       	glEnd();
       	glPopMatrix();
 
       	glPushMatrix();
       	glBegin(GL_POLYGON); 
-      	glVertex3f(0.5,2.5,2.5);
-      	glVertex3f(4.5,2.5,2.5);
-      	glVertex3f(4.5,2.5,3.75);
-      	glVertex3f(0.5,2.5,3.75);
+      	glVertex3f(-2.0,1.0,2.5);
+      	glVertex3f(2.0,1.0,2.5);
+      	glVertex3f(2.0,1.0,3.75);
+      	glVertex3f(-2.0,1.0,3.75);
       	glEnd();
       	glPopMatrix();*/
 
@@ -235,37 +235,48 @@ class Inimigo{
       	glPushMatrix();
       	GLUquadricObj *quadric;
       	quadric = gluNewQuadric();
-      	glTranslatef(1.0,1.5,3.0);
+      	glTranslatef(-1.5,0.0,3.0);
       	gluCylinder(quadric, 0.5, 0.5, 3, 12, 3);
       	glPopMatrix();
 
       	glColor3ub(0,0,0);
       	glPushMatrix();
-      	glTranslatef(1.0,1.5,6.0);
+      	glTranslatef(-1.5,0.0,6.0);
       	gluDisk(quadric, 0.0, 0.5, 30, 1);
       	glPopMatrix();
 
       	glColor3ub(211,211,211);
       	glPushMatrix();
       	quadric = gluNewQuadric();
-      	glTranslatef(4.0,1.5,3.0);
+      	glTranslatef(1.5,0.0,3.0);
       	gluCylinder(quadric, 0.5, 0.5, 3, 12, 3);
       	glPopMatrix();
 
       	glColor3ub(0,0,0);
       	glPushMatrix();
-      	glTranslatef(4.0,1.5,6.0);
+      	glTranslatef(1.5,0.0,6.0);
       	gluDisk(quadric, 0.0, 0.5, 30, 1);
       	glPopMatrix();
+
 	}
 
 	void desenhar_helicoptero(){
 		glScalef(escala, escala, escala);
 
+		/* Caixa preta para teste de colisao */
+      	glColor3ub(0,0,0);
+		glBegin(GL_POLYGON); 
+		glVertex3f(-largura/escala,altura/escala, 0.0);
+		glVertex3f(-largura/escala,-altura/escala, 0.0);
+		glVertex3f(largura/escala,-altura/escala, 0.0);
+		glVertex3f(largura/escala,altura/escala, 0.0);
+		glEnd();
+
     	glColor3ub(135,206,235); //DEFINE cor (R, G, B e percentual de transparência para o objeto)
 
 	    /* cabine do piloto */
 	    glPushMatrix();
+	    glTranslatef(-2.0,0.0,0.0);
 	    glScalef(1.5,1.0,1.0);
 	    glutSolidSphere(1.0, 20, 20);
 	    glPopMatrix();
@@ -275,6 +286,7 @@ class Inimigo{
 	    glPushMatrix();
 	    GLUquadricObj *quadric;
 	    quadric = gluNewQuadric();
+	    glTranslatef(-2.0,0.0,0.0);
 	    glScalef(0.5,0.5,0.5);
 	    gluCylinder(quadric, 0.3, 0.3, 2.5, 12, 3);
 	    glPopMatrix();
@@ -282,7 +294,7 @@ class Inimigo{
 	    /*hélice superior*/
 	    glColor3ub(128,128,128);
 	    glPushMatrix();
-	    glTranslatef(0.0,1.25,1.3);
+	    glTranslatef(-2.0,1.25,1.3);
 	    glRotatef(90.0f, 1.0f, 0.0f, 0.0f);
 	    glScalef(0.5,0.1,0.5);
 	    gluCylinder(quadric, 0.3, 0.3, 5.0, 12, 3);
@@ -291,12 +303,13 @@ class Inimigo{
 	    /*cauda*/
 	    glColor3ub(211,211,211);
 	    glPushMatrix();
+	    glTranslatef(-0.55,0.0,0.0);
 	    glRotatef(90.0f, 0.0f, 1.0f, 0.0f);
 	    gluCylinder(quadric, 0.3, 0.15, 4.0, 12, 3);
 	    glPopMatrix();
 
 	    glPushMatrix();
-	    glTranslatef(4.0,0.0,0.0);
+	    glTranslatef(3.5,0.0,0.0);
 	    glRotatef(90.0f, 0.0f, 1.0f, 0.0f);
 	    gluDisk(quadric, 0.0, 0.15, 30, 1);
 	    glPopMatrix();
@@ -304,7 +317,7 @@ class Inimigo{
 	    /*hélice cauda*/
 	    glColor3ub(128,128,128);
 	    glPushMatrix();
-	    glTranslatef(4.0,0.2,-0.75);
+	    glTranslatef(3.5,0.2,-0.75);
 	    glScalef(0.4,0.1,0.3);
 	    gluCylinder(quadric, 0.3, 0.3, 5.0, 12, 3);
 	    glPopMatrix();
