@@ -233,29 +233,26 @@ class Inimigo{
       	/* chaminés */
       	glColor3ub(211,211,211);
       	glPushMatrix();
-      	GLUquadricObj *quadric;
-      	quadric = gluNewQuadric();
       	glTranslatef(-1.5,0.0,3.0);
-      	gluCylinder(quadric, 0.5, 0.5, 3, 12, 3);
+      	gluCylinder(gluNewQuadric(), 0.5, 0.5, 3, 12, 3);
       	glPopMatrix();
 
       	glColor3ub(0,0,0);
       	glPushMatrix();
       	glTranslatef(-1.5,0.0,6.0);
-      	gluDisk(quadric, 0.0, 0.5, 30, 1);
+      	gluDisk(gluNewQuadric(), 0.0, 0.5, 30, 1);
       	glPopMatrix();
 
       	glColor3ub(211,211,211);
       	glPushMatrix();
-      	quadric = gluNewQuadric();
       	glTranslatef(1.5,0.0,3.0);
-      	gluCylinder(quadric, 0.5, 0.5, 3, 12, 3);
+      	gluCylinder(gluNewQuadric(), 0.5, 0.5, 3, 12, 3);
       	glPopMatrix();
 
       	glColor3ub(0,0,0);
       	glPushMatrix();
       	glTranslatef(1.5,0.0,6.0);
-      	gluDisk(quadric, 0.0, 0.5, 30, 1);
+      	gluDisk(gluNewQuadric(), 0.0, 0.5, 30, 1);
       	glPopMatrix();
 
 	}
@@ -284,11 +281,9 @@ class Inimigo{
 	    /*base hélice*/
 	    glColor3ub(211,211,211);
 	    glPushMatrix();
-	    GLUquadricObj *quadric;
-	    quadric = gluNewQuadric();
 	    glTranslatef(-2.0,0.0,0.0);
 	    glScalef(0.5,0.5,0.5);
-	    gluCylinder(quadric, 0.3, 0.3, 2.5, 12, 3);
+	    gluCylinder(gluNewQuadric(), 0.3, 0.3, 2.5, 12, 3);
 	    glPopMatrix();
 
 	    /*hélice superior*/
@@ -297,7 +292,7 @@ class Inimigo{
 	    glTranslatef(-2.0,1.25,1.3);
 	    glRotatef(90.0f, 1.0f, 0.0f, 0.0f);
 	    glScalef(0.5,0.1,0.5);
-	    gluCylinder(quadric, 0.3, 0.3, 5.0, 12, 3);
+	    gluCylinder(gluNewQuadric(), 0.3, 0.3, 5.0, 12, 3);
 	    glPopMatrix();
 
 	    /*cauda*/
@@ -305,13 +300,13 @@ class Inimigo{
 	    glPushMatrix();
 	    glTranslatef(-0.55,0.0,0.0);
 	    glRotatef(90.0f, 0.0f, 1.0f, 0.0f);
-	    gluCylinder(quadric, 0.3, 0.15, 4.0, 12, 3);
+	    gluCylinder(gluNewQuadric(), 0.3, 0.15, 4.0, 12, 3);
 	    glPopMatrix();
 
 	    glPushMatrix();
 	    glTranslatef(3.5,0.0,0.0);
 	    glRotatef(90.0f, 0.0f, 1.0f, 0.0f);
-	    gluDisk(quadric, 0.0, 0.15, 30, 1);
+	    gluDisk(gluNewQuadric(), 0.0, 0.15, 30, 1);
 	    glPopMatrix();
 
 	    /*hélice cauda*/
@@ -319,7 +314,7 @@ class Inimigo{
 	    glPushMatrix();
 	    glTranslatef(3.5,0.2,-0.75);
 	    glScalef(0.4,0.1,0.3);
-	    gluCylinder(quadric, 0.3, 0.3, 5.0, 12, 3);
+	    gluCylinder(gluNewQuadric(), 0.3, 0.3, 5.0, 12, 3);
 	    glPopMatrix();
 	}
 	
