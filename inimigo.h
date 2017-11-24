@@ -113,14 +113,14 @@ class Inimigo{
 		
 		glScalef(escala, escala, escala);
 
-		/* Caixa preta para teste de colisao */
+		/* Caixa preta para teste de colisao
       	glColor3ub(0,0,0);
 		glBegin(GL_POLYGON); 
 		glVertex3f(-largura/escala,altura/escala, 0.0);
 		glVertex3f(-largura/escala,-altura/escala, 0.0);
 		glVertex3f(largura/escala,-altura/escala, 0.0);
 		glVertex3f(largura/escala,altura/escala, 0.0);
-		glEnd();
+		glEnd();*/
 
 		glColor3ub(128,128,128); //DEFINE cor (R, G, B e percentual de transparência para o objeto)
 
@@ -260,14 +260,14 @@ class Inimigo{
 	void desenhar_helicoptero(){
 		glScalef(escala, escala, escala);
 
-		/* Caixa preta para teste de colisao */
+		/*Caixa preta para teste de colisao
       	glColor3ub(0,0,0);
 		glBegin(GL_POLYGON); 
 		glVertex3f(-largura/escala,altura/escala, 0.0);
 		glVertex3f(-largura/escala,-altura/escala, 0.0);
 		glVertex3f(largura/escala,-altura/escala, 0.0);
 		glVertex3f(largura/escala,altura/escala, 0.0);
-		glEnd();
+		glEnd();*/
 
     	glColor3ub(135,206,235); //DEFINE cor (R, G, B e percentual de transparência para o objeto)
 

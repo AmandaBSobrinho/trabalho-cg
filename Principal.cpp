@@ -44,6 +44,9 @@ void loop_jogo(){
 
 		if(p1.colidir(t[i].pos_x, t[i].pos_y, t[i].largura, t[i].altura))
 			t[i].reset();
+
+		if(tiro.colidir(t[i].pos_x, t[i].pos_y, t[i].largura, t[i].altura))
+			t[i].reset();
 	}
 
 	map.atualizar();
@@ -73,7 +76,7 @@ void DISPLAY (){
 	glLoadIdentity();
 
 	//Camera
-	gluLookAt( 0, -2, 1, 0, 0, 0, 0, 1, 0);
+	gluLookAt( 0, 0, 50, 0, 0, 0, 0, 1, 0);
 	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 
 	//Chamada para a serapação do Loop do jogo
@@ -114,7 +117,7 @@ void keypress (unsigned char key, int x, int y){
 		p1.movimentando = -1;
 
 	}
-	else if (key=='t') {
+	else if (key==32) {
 		mov_tiro = tiro.velocidade;
 		tiro.movimentando = 1;
 		tiro.atirou = 1;

@@ -38,7 +38,7 @@ class Jogador{
 		escala = 8.0f;
 
 		//Cálculo de largura e altura baseada na escala
-		altura = 3.5f * escala;
+		altura = 1.5f * escala;
 		largura = 3.5f * escala;
 
 		//Estado inicial de movimentação = 0-parado
@@ -69,7 +69,7 @@ class Jogador{
 	bool colidir(float x, float y, float l, float a){
 
 		if(y < 0 && pos_y + altura >= y - a)
-			if(pos_x + l >= x - l && pos_x - l <= x + l )
+			if(pos_x + largura >= x - l && pos_x - largura <= x + l )
 				return true;
 
 		return false;
