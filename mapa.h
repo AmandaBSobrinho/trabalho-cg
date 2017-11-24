@@ -5,8 +5,6 @@
 typedef struct Tiles{
 	float pos_x;
 	float pos_y;
-	float escala = 8.0f;
-	float escala2 = 6.0f;
 	//Tipos:
 	//0- Manter
 	//1- Aumentar Terreno
@@ -33,6 +31,9 @@ class Mapa{
 
 	int test;
 
+	float escala;
+	float escala2;
+
 	TTiles terreno[8];
 
 	Mapa(int s){
@@ -47,6 +48,9 @@ class Mapa{
 		altura /= 2;
 
 		velocidade = -3.3f;
+
+		escala = 8.0f;
+		escala2 = 6.0f;
 
 		for(int i = 0; i< qnt_tiles; i++){
 			terreno[i].tipo = 0;
