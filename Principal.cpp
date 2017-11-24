@@ -9,6 +9,7 @@
 #include "jogador.h"
 #include "inimigo.h"
 #include "mapa.h"
+#include "tiro.h"
 
 void DISPLAY ();
 int main(int argc,char **argv);
@@ -20,6 +21,7 @@ int n = 1;
 Inimigo t[1];
 Jogador p1 = Jogador(screen_size);
 Mapa map = Mapa(screen_size);
+Tiro tiro = Tiro(screen_size);
 float mov = 0.0f;
 
 void keypress (unsigned char key, int x, int y);
@@ -109,7 +111,12 @@ void keypress (unsigned char key, int x, int y){
 		mov = -p1.velocidade;
 		p1.movimentando = -1;
 
-	}else if (key==27){ exit(0); }
+	}
+	else if (key=='t') {
+		tiro.movimentar(1.0f);
+	}
+
+	else if (key==27){ exit(0); }
 
 	glutPostRedisplay();
 }
