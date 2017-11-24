@@ -21,8 +21,9 @@ int n = 1;
 Inimigo t[1];
 Jogador p1 = Jogador(screen_size);
 Mapa map = Mapa(screen_size);
-Tiro tiro = Tiro(screen_size);
+Tiro tiro = Tiro(screen_size, p1.pos_x, p1.pos_y, p1.pos_z);
 float mov = 0.0f;
+float mov_tiro = 0.0f;
 
 void keypress (unsigned char key, int x, int y);
 void keyup (unsigned char key, int x, int y);
@@ -36,6 +37,7 @@ void loop_jogo(){
 	glutKeyboardUpFunc(keyup);
 
 	p1.movimentar(mov);
+	tiro.movimentar(mov_tiro, p1.pos_x, p1.pos_y, p1.pos_z);
 
 	for(int i=0; i<n; i++){
 		t[i].movimentar(map.velocidade);
@@ -71,7 +73,7 @@ void DISPLAY (){
 	glLoadIdentity();
 
 	//Camera
-	gluLookAt( 0, 0, 50, 0, 0, 0, 0, 1, 0);
+	gluLookAt( 0, -2, 1, 0, 0, 0, 0, 1, 0);
 	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 
 	//Chamada para a serapação do Loop do jogo
@@ -113,7 +115,9 @@ void keypress (unsigned char key, int x, int y){
 
 	}
 	else if (key=='t') {
-		tiro.movimentar(1.0f);
+		mov_tiro = tiro.velocidade;
+		tiro.movimentando = 1;
+		tiro.atirou = 1;
 	}
 
 	else if (key==27){ exit(0); }
