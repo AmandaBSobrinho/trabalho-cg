@@ -1,89 +1,92 @@
-//tiles (x,y) = (120,75)
-//tile minimo = (120, 25)
-
-
-typedef struct Tiles{
-	float pos_x;
-	float pos_y;
-	//Tipos:
-	//0- Manter
-	//1- Aumentar Terreno
-	//2- Diminuir Terreno
-	int tipo;
-	int qnt_largura;
-	int qnt_altura;
-
-}TTiles;
-
 class Mapa{
 	
 	public:
 	//Limite da tela utilizada
 	float limite;
+	float limite_inferior;
+	float largura_minima;
 
 	//velocidade de movimentação do mapa em Y
 	float velocidade;
 
-	//Largura e altura de cada tile do terreno
-	float largura;
-	float altura;
-	int qnt_tiles;
+	int num_inimigos;
+	Inimigo inimigos[1];
 
-	int test;
+	int num_terrenos;
+	Terreno terrenos[8];
+	int terreno_carregado;
+	int flag_carregado;
 
-	float escala;
-	float escala2;
+	InfoT InfTerrenos[2][24];
 
-	TTiles terreno[8];
+	int i;
+
+	int dificuldade;
 
 	Mapa(int s){
 
 		limite = s/2;
-		qnt_tiles = 8;
+		limite_inferior= -2.0f * s;
+		largura_minima = 15.0f;
 
-		largura = limite/10;
-		altura = limite/3;
+		num_inimigos = 1;
+		num_terrenos = 8;
 
-		largura /= 2;
-		altura /= 2;
+		velocidade = -3.0f;
 
-		velocidade = -3.3f;
+		terreno_carregado = 0;
+		Gerar_Mapa_Inicial();
 
-		escala = 8.0f;
-		escala2 = 6.0f;
+		for(i=0; i<num_inimigos; i++)
+			inimigos[i] = Inimigo(limite);
 
-		for(int i = 0; i< qnt_tiles; i++){
-			terreno[i].tipo = 0;
-			terreno[i].qnt_largura = 1;
-			terreno[i].qnt_altura = -1+i;
-			terreno[i].pos_x = limite - (terreno[i].qnt_largura * largura);
-			terreno[i].pos_y = limite - (terreno[i].qnt_altura * 2 * altura) + altura;
+		for(i=0; i<num_terrenos; i++){
+
+			terrenos[i] = Terreno(limite, InfTerrenos[flag_carregado][i], limite_inferior + (i * (2.0f * InfTerrenos[flag_carregado][i].altura)), i);
+			terreno_carregado++;
 
 		}
 
 	}
 
+	void reset(){
+
+		terreno_carregado = 0;
+
+		for(i=0; i<num_inimigos; i++)
+			inimigos[i] = Inimigo(limite);
+
+		for(i=0; i<num_terrenos; i++){
+
+			terrenos[i] = Terreno(limite, InfTerrenos[flag_carregado][i], limite_inferior + (i * (2.0f * InfTerrenos[flag_carregado][i].altura)), i);
+			terreno_carregado++;
+		}
+	}
+
 	void atualizar(){
 
-		for(int i = 0; i< qnt_tiles; i++){
-			terreno[i].pos_y += velocidade;
+		for(i=0; i<num_inimigos; i++){
+			inimigos[i].movimentar(velocidade);
 		}
 
-		for(int i = 0; i< qnt_tiles; i++){
+		for(i=0; i<num_terrenos; i++){
+			terrenos[i].movimentar(velocidade);
+		}
 
-			if(terreno[i].pos_y < -(qnt_tiles * altura)){
+		i = terreno_carregado % num_terrenos;
+		if(terrenos[i].pos_y < limite_inferior){
+			terrenos[i].resetar(InfTerrenos[flag_carregado][terreno_carregado], -2.0f*limite_inferior);
 
-				if(i == qnt_tiles-1){
-					terreno[i].pos_y = terreno[0].pos_y + 2*altura;
-				}else{
-					terreno[i].pos_y = terreno[i+1].pos_y + 2*altura;
-				}
+			terreno_carregado++;
 
-				test = (int)aleatorio(11,0,1.0f);
-				terreno[i].qnt_largura = test;
-
+			if(terreno_carregado>=24){
+				terreno_carregado=0;
+				
+				if(flag_carregado == 0)
+					flag_carregado = 1;
+				else
+					flag_carregado = 0;
 			}
-
 		}
 
 		desenhar();
@@ -97,224 +100,77 @@ class Mapa{
 
 	void desenhar(){
 
-		int z_terreno = 0;
+		glColor3ub(0,100,0);
 
+		glPushMatrix();
 
-		for(int i = 0; i<qnt_tiles; i++){
+		glTranslatef(limite - largura_minima,0,0);
 
-			glColor3ub(0,100,0);
+		glBegin(GL_POLYGON); 
+		glVertex3f(-largura_minima, (limite), 0);
+		glVertex3f(-largura_minima,-(limite), 0);
+		glVertex3f( largura_minima,-(limite), 0);
+		glVertex3f( largura_minima, (limite), 0);
+		glEnd();
 
-			glPushMatrix();
-			glTranslatef(terreno[i].pos_x, terreno[i].pos_y,0);
-			
-			glBegin(GL_POLYGON); 
-			glVertex3f(-(terreno[i].qnt_largura * largura), (altura), z_terreno);
-			glVertex3f(-(terreno[i].qnt_largura * largura),-(altura), z_terreno);
-			glVertex3f((terreno[i].qnt_largura * largura),-(altura), z_terreno);
-			glVertex3f((terreno[i].qnt_largura * largura),(altura), z_terreno);
-			glEnd();
+		glPopMatrix();
 
-			glPopMatrix();
-			
-			glPushMatrix();
-			glTranslatef(-terreno[i].pos_x, terreno[i].pos_y,0);
+		glPushMatrix();
 
-			glBegin(GL_POLYGON); 
-			glVertex3f(-(terreno[i].qnt_largura * largura), (altura), z_terreno);
-			glVertex3f(-(terreno[i].qnt_largura * largura),-(altura), z_terreno);
-			glVertex3f((terreno[i].qnt_largura * largura),-(altura), z_terreno);
-			glVertex3f((terreno[i].qnt_largura * largura),(altura), z_terreno);
-			glEnd();
+		glTranslatef(-(limite - largura_minima),0,0);
 
-			glPopMatrix();
+		glBegin(GL_POLYGON); 
+		glVertex3f(-largura_minima, (limite), 0);
+		glVertex3f(-largura_minima,-(limite), 0);
+		glVertex3f( largura_minima,-(limite), 0);
+		glVertex3f( largura_minima, (limite), 0);
+		glEnd();
 
+		glPopMatrix();
+
+/*
+		glColor3ub(0,0,200);
+
+		glBegin(GL_POLYGON); 
+		glVertex3f(-limite, (limite), 0);
+		glVertex3f(-limite,-(limite), 0);
+		glVertex3f( limite,-(limite), 0);
+		glVertex3f( limite, (limite), 0);
+		glEnd();*/
+
+	}
+
+	void Gerar_Mapa_Inicial(){
+
+		for(i=0; i<24;i++){
+
+			InfTerrenos[0][i].altura = limite/2;
+			InfTerrenos[0][i].largura = 20 + aleatorio(70,0,1);
+
+			InfTerrenos[0][i].tipo = aleatorio(100,0,1);
+			if(InfTerrenos[0][i].tipo > 70)
+				InfTerrenos[0][i].tipo = 0;
+			else
+				InfTerrenos[0][i].tipo = 1;
+
+			InfTerrenos[0][i].x = limite - InfTerrenos[0][i].largura/2;
 		}
 
+		for(i=0; i<24;i++){
+			InfTerrenos[1][i].altura = limite/2;
+			InfTerrenos[1][i].largura = 20 + aleatorio(100,0,1);
 
-	}
+			InfTerrenos[0][i].tipo = aleatorio(100,0,1);
+			if(InfTerrenos[0][i].tipo > 70)
+				InfTerrenos[0][i].tipo = 0;
+			else
+				InfTerrenos[0][i].tipo = 1;
 
-	void desenhar_casa(){
-		glScalef(escala, escala, escala);
+			InfTerrenos[1][i].x = limite - InfTerrenos[1][i].largura/2;
+		}
 
-		// fundação
-		glColor3ub(216,216,191);
-  		glBegin(GL_QUADS);
-  		glVertex3f(-20, -10, 0.2);
-  		glVertex3f(20, -10, 0.2);
-  		glVertex3f(20, 10, 0.2);
-  		glVertex3f(-20, 10, 0.2);
-  		glEnd();
+		dificuldade = 2;
 
-  		// parede esquerda
-		glColor3ub(255,255,255);
-  		glBegin(GL_QUADS);
-  		glVertex3f(-20, -10, 0);
-  		glVertex3f(-20, 10, 0);
-  		glVertex3f(-20, 10, 10);
-  		glVertex3f(-20, -10, 10);
-  		glEnd();
-
-  		// parede direita
-  		glBegin(GL_QUADS);
-  		glVertex3f(20, -10, 0);
-  		glVertex3f(20, 10, 0);
-  		glVertex3f(20, 10, 10);
-  		glVertex3f(20, -10, 10);
-  		glEnd();
-
-  		// parede frente A
-  		glBegin(GL_QUADS);
-  		glVertex3f(-20, -10, 0);
-  		glVertex3f(-20, -10, 8);
-  		glVertex3f(10, -10, 8);
-  		glVertex3f(10, -10, 0);
-  		glEnd();
-
-  		// parede frente B
-  		glBegin(GL_QUADS);
-  		glVertex3f(15, -10, 0);
-  		glVertex3f(15, -10, 8);
-  		glVertex3f(20, -10, 8);
-  		glVertex3f(20, -10, 0);
-  		glEnd();
-
-  		// parede frente C
-  		glBegin(GL_QUADS);
-  		glVertex3f(-20, -10, 8);
-  		glVertex3f(-20, -10, 10);
-  		glVertex3f(20, -10, 10);
-  		glVertex3f(20, -10, 8);
-  		glEnd();
-
-
-  		// parede fundo A
-  		glBegin(GL_QUADS);
-  		glVertex3f(-20, 10, 0);
-  		glVertex3f(-20, 10, 3);
-  		glVertex3f(20, 10, 3);
-  		glVertex3f(20, 10, 0);
-  		glEnd();
-
-  		// parede fundo B
-  		glBegin(GL_QUADS);
-  		glVertex3f(-20, 10, 7);
-  		glVertex3f(-20, 10, 10);
-  		glVertex3f(20, 10, 10);
-  		glVertex3f(20, 10, 7);
-  		glEnd();
-
-  		// parede fundo C
-  		glBegin(GL_QUADS);
-  		glVertex3f(-20, 10, 3);
-  		glVertex3f(-20, 10, 7);
-  		glVertex3f(-10, 10, 7);
-  		glVertex3f(-10, 10, 3);
-  		glEnd();
-
-  		// parede fundo D
-  		glBegin(GL_QUADS);
-  		glVertex3f(-5, 10, 3);
-  		glVertex3f(-5, 10, 7);
-  		glVertex3f(20, 10, 7);
-  		glVertex3f(20, 10, 3);
-  		glEnd();
-
-      	// telhado direito
-      	glColor3ub(255,165,0);
-      	glBegin(GL_QUADS);
-      	glVertex3f(22, -10.5, 9.5);
-      	glVertex3f(22, 10.5, 9.5);
-      	glVertex3f(0, 10.5, 15);
-      	glVertex3f(0, -10.5, 15);
-      	glEnd();
-
-      	// telhado esquerdo
-      	glBegin(GL_QUADS);
-      	glVertex3f(-22, -10.5, 9.5);
-      	glVertex3f(-22, 10.5, 9.5);
-      	glVertex3f(0, 10.5, 15);
-      	glVertex3f(0, -10.5, 15);
-      	glEnd();
-
-      	// telhado frente 
-      	glBegin(GL_TRIANGLES);
-      	glVertex3f(-22, 10.5, 9.5);
-      	glVertex3f(0, 10.5, 15);
-      	glVertex3f(22, 10.5, 9.5);
-      	glEnd();
-
-      	// telhado trás 
-      	glBegin(GL_TRIANGLES);
-      	glVertex3f(-22, -10.5, 9.5);
-      	glVertex3f(0, -10.5, 15);
-      	glVertex3f(22, -10.5, 9.5);
-      	glEnd();
-	}
-
-	void desenhar_arvore(){
-		glScalef(escala, escala, escala);
-
-		// Copa
-		glPushMatrix();
-  		glTranslatef(0, 0, 1.5);
-  		glPushMatrix();
-  		glColor3ub(50,205,50);
-  		glutSolidCone(1.75, 3.5, 20, 20);
-  		glPopMatrix();
-  		glPopMatrix();
-
-  		// Tronco
-  		glPushMatrix();
-  		glColor3ub(100, 80, 60);
-  		gluCylinder(gluNewQuadric(), 0.5, 0.5, 2, 20, 20);
-  		glPopMatrix();
-	}
-
-	void desenhar_combustivel(){
-		glScalef(escala2, escala2, escala2);
-
-		glPushMatrix();
-    	glTranslatef(-1.5, 0, 0);
-    	glRotatef(90, 0, 1, 0);
-    	glColor3ub(250, 128, 114);
-    	gluCylinder(gluNewQuadric(), 0.5, 0.5, 1, 20, 20);
-    	glPopMatrix();
-
-    	glPushMatrix();
-    	glTranslatef(-0.5, 0, 0);
-    	glRotatef(90, 0, 1, 0);
-    	glColor3ub(255, 255, 255);
-    	gluCylinder(gluNewQuadric(), 0.5, 0.5, 1, 20, 20);
-    	glPopMatrix();
-
-    	glPushMatrix();
-    	glTranslatef(0.5, 0, 0);
-    	glRotatef(90, 0, 1, 0);
-    	glColor3ub(250, 128, 114);
-    	gluCylinder(gluNewQuadric(), 0.5, 0.5, 1, 20, 20);
-    	glPopMatrix();
-
-    	glPushMatrix();
-    	glTranslatef(1.5, 0, 0);
-    	glRotatef(90, 0, 1, 0);
-    	glColor3ub(255, 255, 255);
-    	gluCylinder(gluNewQuadric(), 0.5, 0.5, 1, 20, 20);
-    	glPopMatrix();
-    	glPopMatrix();
-
-    	glPushMatrix();
-    	glTranslatef(2.0,0.0,0.0);
-    	glRotatef(90.0f, 0.0f, 1.0f, 0.0f);
-    	gluDisk(gluNewQuadric(), 0.0, 0.5, 30, 1);
-    	glPopMatrix();
-
-    	glPushMatrix();
-    	glColor3ub(250, 128, 114);
-    	glTranslatef(-1.5,0.0,0.0);
-    	glRotatef(90.0f, 0.0f, 1.0f, 0.0f);
-    	gluDisk(gluNewQuadric(), 0.0, 0.5, 30, 1);
-    	glPopMatrix();
 	}
 
 };
-

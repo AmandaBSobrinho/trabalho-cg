@@ -22,9 +22,7 @@ class Inimigo{
 	//Tipo do inimigo: 1-Navio, 0-Helicoptero
 	int tipo_inimigo;
 	
-	Inimigo(){
-
-	}
+	Inimigo(){}
 	
 	Inimigo(int s){
 

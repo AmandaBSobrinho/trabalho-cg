@@ -68,11 +68,31 @@ class Jogador{
 	//Cálculo da colisão
 	bool colidir(float x, float y, float l, float a){
 
-		if(y < 0 && pos_y + altura >= y - a)
-			if(pos_x + l >= x - l && pos_x - l <= x + l )
+		int teste = pos_y - y;
+
+		if(teste < 0)
+			teste *= -1;
+
+		if(teste <= altura + a){
+			teste = pos_x - x;
+
+			if(teste < 0)
+				teste *=-1;
+
+			if(teste < largura + l){
 				return true;
+			}
+		}
 
 		return false;
+
+	}
+
+	void reset(){
+
+		pos_x = 1.0f;
+		pos_y = -280.0f;
+		pos_z = 1.0f;
 
 	}
 	

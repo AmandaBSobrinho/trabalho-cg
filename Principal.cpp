@@ -6,8 +6,22 @@
 #include <GL/glu.h>
 #include <GL/gl.h>
 
+typedef struct InfoTerrenos{
+
+	float x;
+
+	float altura;
+	float largura;
+
+	//interna ou externa	
+	float tipo;
+
+}InfoT;
+
+
 #include "jogador.h"
 #include "inimigo.h"
+#include "terreno.h"
 #include "mapa.h"
 
 void DISPLAY ();
@@ -16,8 +30,8 @@ float aleatorio_x();
 
 
 int screen_size = 600;
-int n = 1;
-Inimigo t[1];
+
+
 Jogador p1 = Jogador(screen_size);
 Mapa map = Mapa(screen_size);
 float mov = 0.0f;
@@ -25,6 +39,13 @@ float mov = 0.0f;
 void keypress (unsigned char key, int x, int y);
 void keyup (unsigned char key, int x, int y);
 
+
+void resetar(){
+
+	map.reset();
+	p1.reset();
+	
+}
 
 //Loop principal do jogo para separação entre lógica utilizada e rotinas do OpenGL
 void loop_jogo(){
@@ -35,12 +56,42 @@ void loop_jogo(){
 
 	p1.movimentar(mov);
 
-	for(int i=0; i<n; i++){
-		t[i].movimentar(map.velocidade);
+	for(int i=0; i<map.num_inimigos; i++){
 
-		if(p1.colidir(t[i].pos_x, t[i].pos_y, t[i].largura, t[i].altura))
-			t[i].reset();
+		if(p1.colidir(map.inimigos[i].pos_x, map.inimigos[i].pos_y, map.inimigos[i].largura, map.inimigos[i].altura))
+			resetar();
 	}
+
+	for(int i=0; i<map.num_terrenos; i++){
+
+		if(p1.colidir(
+				-(map.terrenos[i].tipo*map.limite) + map.terrenos[i].pos_x,
+				 map.terrenos[i].pos_y,
+				 map.terrenos[i].largura,
+				 map.terrenos[i].altura))
+			resetar();
+
+		if(p1.colidir(
+				(map.terrenos[i].tipo*map.limite) - map.terrenos[i].pos_x,
+				 map.terrenos[i].pos_y,
+				 map.terrenos[i].largura,
+				 map.terrenos[i].altura))
+			resetar();
+	}
+
+	if(p1.colidir(
+				 map.limite - map.largura_minima,
+				 0,
+				 map.largura_minima,
+				 map.limite))
+			resetar();
+
+	if(p1.colidir(
+			 - map.limite + map.largura_minima,
+			 0,
+			 map.largura_minima,
+			 map.limite))
+		resetar();
 
 	map.atualizar();
 
@@ -58,7 +109,7 @@ void DISPLAY (){
 	glEnable(GL_SMOOTH);
 	glEnable(GL_BLEND);
 
-	glClearColor(0.0, 0.0, 1.0, 0.0);
+	glClearColor(0.0, 0.0, 0.70, 0.0);
 
 	glMatrixMode(GL_PROJECTION);
 	glLoadIdentity();
@@ -83,15 +134,12 @@ int main(int argc,char **argv){
 
 	srand(time(NULL));
 
-	for(int i=0; i<n; i++)
-		t[i] = Inimigo(screen_size);
-
 	glutInit(&argc, argv);
 
 	glutInitDisplayMode(GLUT_DOUBLE | GLUT_RGB | GLUT_DEPTH);
 	glutInitWindowSize(screen_size, screen_size);
 	glutInitWindowPosition(100,100);
-	glutCreateWindow("Attack!!!!");
+	glutCreateWindow("River Raid");
 	glutDisplayFunc(DISPLAY);
 	glutMainLoop();
 	return 0;
@@ -100,16 +148,29 @@ int main(int argc,char **argv){
 //Key press utilizado para iniciar a ação do jogador
 void keypress (unsigned char key, int x, int y){
 
-	if (key=='d'){
-		mov = p1.velocidade;
-		p1.movimentando = 1;
+	switch(key){
+		case 'd':
+			mov = p1.velocidade;
+			p1.movimentando = 1;
+		break;
+
+		case 'a':
+			mov = -p1.velocidade;
+			p1.movimentando = -1;
+		break;
+
+		case 'p':
+			if(map.velocidade == 0.0f)
+				map.velocidade = -3.0f;
+			else
+				map.velocidade = 0.0f;
+		break;
+
+		case 27:
+			exit(0);
+		break;
+
 	}
-	else if (key=='a'){
-
-		mov = -p1.velocidade;
-		p1.movimentando = -1;
-
-	}else if (key==27){ exit(0); }
 
 	glutPostRedisplay();
 }
@@ -117,9 +178,18 @@ void keypress (unsigned char key, int x, int y){
 //Key up utilizado para encerrar uma ação iniciada pelo jogador
 void keyup (unsigned char key, int x, int y) {
 
-	if(key=='d' || key=='a'){
-		p1.movimentando = 0;
-		mov = 0.0f;
+	switch(key){
+
+		case 'd':
+			p1.movimentando = 0;
+			mov = 0.0f;
+		break;
+
+		case 'a':
+			p1.movimentando = 0;
+			mov = 0.0f;
+		break;
+
 	}
 
 	glutPostRedisplay();
