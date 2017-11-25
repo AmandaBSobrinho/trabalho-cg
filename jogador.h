@@ -25,7 +25,7 @@ class Jogador{
 		
 		//posição inicial no centro inferior da tela		
 		pos_x = 1.0f;
-		pos_y = -280.0f;
+		pos_y = -190.0f;
 		pos_z = 1.0f;
 
 		//Definição do limite da tela.

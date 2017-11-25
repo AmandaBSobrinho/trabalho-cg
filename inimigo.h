@@ -21,12 +21,10 @@ class Inimigo{
 
 	//Tipo do inimigo: 1-Navio, 0-Helicoptero
 	int tipo_inimigo;
-	
-	Inimigo(){
 
-	}
+	Inimigo(){}
 	
-	Inimigo(int s){
+	Inimigo (int s){
 
 		//Posição inicial do inimigo
 		//Atualmente todos iniciam no topo da tela e aleatoriamente em x

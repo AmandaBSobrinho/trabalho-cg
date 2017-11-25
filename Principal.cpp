@@ -1,6 +1,7 @@
 #include <stdlib.h>
 #include <stdio.h>
 #include <time.h>
+#include <unistd.h>
 
 #include <GL/glut.h>
 #include <GL/glu.h>
@@ -10,6 +11,7 @@
 #include "inimigo.h"
 #include "mapa.h"
 #include "tiro.h"
+#include "jogabilidade.h"
 
 void DISPLAY ();
 int main(int argc,char **argv);
@@ -22,6 +24,7 @@ Inimigo t[1];
 Jogador p1 = Jogador(screen_size);
 Mapa map = Mapa(screen_size);
 Tiro tiro = Tiro(screen_size, p1.pos_x, p1.pos_y, p1.pos_z);
+Jogabilidade jogabilidade = Jogabilidade();
 float mov = 0.0f;
 float mov_tiro = 0.0f;
 
@@ -42,13 +45,19 @@ void loop_jogo(){
 	for(int i=0; i<n; i++){
 		t[i].movimentar(map.velocidade);
 
-		if(p1.colidir(t[i].pos_x, t[i].pos_y, t[i].largura, t[i].altura))
+		if(p1.colidir(t[i].pos_x, t[i].pos_y, t[i].largura, t[i].altura)){
 			t[i].reset();
+			jogabilidade.atualizar_pontuacao(t[i].tipo_inimigo);
+		}
 
-		if(tiro.colidir(t[i].pos_x, t[i].pos_y, t[i].largura, t[i].altura))
+		if(tiro.colidir(t[i].pos_x, t[i].pos_y, t[i].largura, t[i].altura)){
 			t[i].reset();
+			jogabilidade.atualizar_pontuacao(t[i].tipo_inimigo);
+		}
 	}
 
+	jogabilidade.desenhar_display();
+	jogabilidade.atualizar_combustivel();
 	map.atualizar();
 
 }
@@ -76,10 +85,10 @@ void DISPLAY (){
 	glLoadIdentity();
 
 	//Camera
-	gluLookAt( 0, 0, 50, 0, 0, 0, 0, 1, 0);
+	gluLookAt( 0, 0, 3, 0, 0, 0, 0, 1, 0);
 	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 
-	//Chamada para a serapação do Loop do jogo
+	//Chamada para a separação do Loop do jogo
 	loop_jogo();
 
     glutSwapBuffers();
