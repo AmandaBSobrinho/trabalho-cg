@@ -69,6 +69,11 @@ void loop_jogo(){
 
 		if(p1.colidir(map.inimigos[i].pos_x, map.inimigos[i].pos_y, map.inimigos[i].largura, map.inimigos[i].altura))
 			resetar();
+
+		if(tiro.colidir(map.inimigos[i].pos_x, map.inimigos[i].pos_y, map.inimigos[i].largura, map.inimigos[i].altura)){
+			map.inimigos[i].reset();
+			jogabilidade.atualizar_pontuacao(map.inimigos[i].tipo_inimigo);
+		}
 	}
 
 	for(int i=0; i<map.num_terrenos; i++){
@@ -101,19 +106,6 @@ void loop_jogo(){
 			 map.largura_minima,
 			 map.limite))
 		resetar();
-
-	/* PONTUÇAO NA COLISAO *//*
-		if(p1.colidir(t[i].pos_x, t[i].pos_y, t[i].largura, t[i].altura)){
-			t[i].reset();
-			jogabilidade.atualizar_pontuacao(t[i].tipo_inimigo);
-		}
-
-		if(tiro.colidir(t[i].pos_x, t[i].pos_y, t[i].largura, t[i].altura)){
-			t[i].reset();
-			jogabilidade.atualizar_pontuacao(t[i].tipo_inimigo);
-		}
-	}
-	*/
 
 	jogabilidade.desenhar_display();
 	jogabilidade.atualizar_combustivel();
