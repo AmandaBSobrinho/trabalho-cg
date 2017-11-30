@@ -25,7 +25,7 @@ class Jogador{
 		
 		//posição inicial no centro inferior da tela		
 		pos_x = 1.0f;
-		pos_y = -280.0f;
+		pos_y = -190.0f;
 		pos_z = 1.0f;
 
 		//Definição do limite da tela.
@@ -38,7 +38,7 @@ class Jogador{
 		escala = 8.0f;
 
 		//Cálculo de largura e altura baseada na escala
-		altura = 3.5f * escala;
+		altura = 1.5f * escala;
 		largura = 3.5f * escala;
 
 		//Estado inicial de movimentação = 0-parado
@@ -80,6 +80,7 @@ class Jogador{
 				teste *=-1;
 
 			if(teste < largura + l){
+
 				return true;
 			}
 		}
@@ -91,7 +92,7 @@ class Jogador{
 	void reset(){
 
 		pos_x = 1.0f;
-		pos_y = -280.0f;
+		pos_y = -190.0f;
 		pos_z = 1.0f;
 
 	}

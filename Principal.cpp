@@ -1,6 +1,7 @@
 #include <stdlib.h>
 #include <stdio.h>
 #include <time.h>
+#include <unistd.h>
 
 #include <GL/glut.h>
 #include <GL/glu.h>
@@ -23,18 +24,23 @@ typedef struct InfoTerrenos{
 #include "inimigo.h"
 #include "terreno.h"
 #include "mapa.h"
+#include "tiro.h"
+#include "jogabilidade.h"
 
 void DISPLAY ();
 int main(int argc,char **argv);
 float aleatorio_x();
 
 
-int screen_size = 600;
+int screen_size = 800;
 
 
 Jogador p1 = Jogador(screen_size);
 Mapa map = Mapa(screen_size);
+Tiro tiro = Tiro(screen_size, p1.pos_x, p1.pos_y, p1.pos_z);
+Jogabilidade jogabilidade = Jogabilidade();
 float mov = 0.0f;
+float mov_tiro = 0.0f;
 
 void keypress (unsigned char key, int x, int y);
 void keyup (unsigned char key, int x, int y);
@@ -55,6 +61,7 @@ void loop_jogo(){
 	glutKeyboardUpFunc(keyup);
 
 	p1.movimentar(mov);
+	tiro.movimentar(mov_tiro, p1.pos_x, p1.pos_y, p1.pos_z);
 
 	for(int i=0; i<map.num_inimigos; i++){
 
@@ -93,6 +100,22 @@ void loop_jogo(){
 			 map.limite))
 		resetar();
 
+	/* PONTUÇAO NA COLISAO *//*
+		if(p1.colidir(t[i].pos_x, t[i].pos_y, t[i].largura, t[i].altura)){
+			t[i].reset();
+			jogabilidade.atualizar_pontuacao(t[i].tipo_inimigo);
+		}
+
+		if(tiro.colidir(t[i].pos_x, t[i].pos_y, t[i].largura, t[i].altura)){
+			t[i].reset();
+			jogabilidade.atualizar_pontuacao(t[i].tipo_inimigo);
+		}
+	}
+	*/
+
+	jogabilidade.desenhar_display();
+	jogabilidade.atualizar_combustivel();
+
 	map.atualizar();
 
 }
@@ -120,10 +143,10 @@ void DISPLAY (){
 	glLoadIdentity();
 
 	//Camera
-	gluLookAt( 0, 0, 50, 0, 0, 0, 0, 1, 0);
+	gluLookAt( 0, 0, 3, 0, 0, 0, 0, 1, 0);
 	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 
-	//Chamada para a serapação do Loop do jogo
+	//Chamada para a separação do Loop do jogo
 	loop_jogo();
 
     glutSwapBuffers();
@@ -164,6 +187,12 @@ void keypress (unsigned char key, int x, int y){
 				map.velocidade = -3.0f;
 			else
 				map.velocidade = 0.0f;
+		break;
+
+		case 32:
+			mov_tiro = tiro.velocidade;
+			tiro.movimentando = 1;
+			tiro.atirou = 1;
 		break;
 
 		case 27:
