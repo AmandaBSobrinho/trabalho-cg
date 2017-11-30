@@ -20,6 +20,7 @@ float aleatorio_x();
 
 int screen_size = 600;
 int n = 1;
+int vista = 1;
 Inimigo t[1];
 Jogador p1 = Jogador(screen_size);
 Mapa map = Mapa(screen_size);
@@ -79,13 +80,19 @@ void DISPLAY (){
 	glMatrixMode(GL_PROJECTION);
 	glLoadIdentity();
 
-    glOrtho(-screen_size/2, screen_size/2, -screen_size/2, screen_size/2, -screen_size/2, screen_size/2);
+	//if (vista) // vista superior, usa projeção ortogonal
+    	glOrtho(-screen_size/2, screen_size/2, -screen_size/2, screen_size/2, -screen_size/2, screen_size/2);
+    //else
+    //	gluPerspective(45,1,1,150); // vista atrás do avião, usa projeção em perspectiva
 
 	glMatrixMode(GL_MODELVIEW);
 	glLoadIdentity();
 
 	//Camera
-	gluLookAt( 0, 0, 3, 0, 0, 0, 0, 1, 0);
+	if (vista) // posição da câmera na vista superior
+		gluLookAt( 0, 0, 3, 0, 0, 0, 0, 1, 0);
+	else
+		gluLookAt( 0, -190, 3, 0, -180, 0, 0, 1, 0); // posição da câmera na vista atrás do avião
 	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 
 	//Chamada para a separação do Loop do jogo
@@ -130,6 +137,18 @@ void keypress (unsigned char key, int x, int y){
 		mov_tiro = tiro.velocidade;
 		tiro.movimentando = 1;
 		tiro.atirou = 1;
+	}
+
+	else if (key=='c'){
+		// Altera a vista (muda entre superior e atrás do avião)
+		if (vista) {
+			vista = 0;
+			jogabilidade.vista = 0;
+		}
+		else {
+			vista = 1;
+			jogabilidade.vista = 1;
+		}
 	}
 
 	else if (key==27){ exit(0); }
