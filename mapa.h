@@ -128,7 +128,7 @@ class Mapa{
 
 		glPopMatrix();
 
-/*
+
 		glColor3ub(0,0,200);
 
 		glBegin(GL_POLYGON); 
@@ -136,7 +136,7 @@ class Mapa{
 		glVertex3f(-limite,-(limite), 0);
 		glVertex3f( limite,-(limite), 0);
 		glVertex3f( limite, (limite), 0);
-		glEnd();*/
+		glEnd();
 
 	}
 

@@ -92,7 +92,7 @@ class Jogador{
 	void reset(){
 
 		pos_x = 1.0f;
-		pos_y = -190.0f;
+		pos_y = -290.0f;
 		pos_z = 1.0f;
 
 	}

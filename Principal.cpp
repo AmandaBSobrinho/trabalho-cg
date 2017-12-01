@@ -37,6 +37,16 @@ int screen_size = 800;
 int n = 1;
 int vista = 1;
 
+float fovy = 45.0f;
+float aspect = 1.0f;
+float zNear = 10.0f;
+float zFar = 1000.0f;
+
+float cx = 0;
+float cy = -435;
+float cz = 70;
+
+
 Jogador p1 = Jogador(screen_size);
 Mapa map = Mapa(screen_size);
 Tiro tiro = Tiro(screen_size, p1.pos_x, p1.pos_y, p1.pos_z);
@@ -126,24 +136,23 @@ void DISPLAY (){
 	glEnable(GL_SMOOTH);
 	glEnable(GL_BLEND);
 
-	glClearColor(0.0, 0.0, 0.70, 0.0);
+	glClearColor(0.5, 0.5, 0.5, 0.0);
 
 	glMatrixMode(GL_PROJECTION);
 	glLoadIdentity();
-
-	//if (vista) // vista superior, usa projeção ortogonal
-    	glOrtho(-screen_size/2, screen_size/2, -screen_size/2, screen_size/2, -screen_size/2, screen_size/2);
-    //else
-    //	gluPerspective(45,1,1,150); // vista atrás do avião, usa projeção em perspectiva
 
 	glMatrixMode(GL_MODELVIEW);
 	glLoadIdentity();
 
 	//Camera
-	if (vista) // posição da câmera na vista superior
-		gluLookAt( 0, 0, 3, 0, 0, 0, 0, 1, 0);
-	else
-		gluLookAt( 0, -190, 3, 0, -180, 0, 0, 1, 0); // posição da câmera na vista atrás do avião
+	if (vista){ // posição da câmera na vista superior
+		glOrtho(-screen_size/2, screen_size/2, -screen_size/2, screen_size/2, -screen_size/2, screen_size/2);
+		gluLookAt( 0, 0, 50, 0, 0, 0, 0, 1, 0);
+	} else{
+		gluPerspective(fovy,aspect,zNear,zFar);
+		gluLookAt( p1.pos_x, cy, cz, p1.pos_x, 0, 0, 0, 0, 1);
+	}
+
 	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 
 	//Chamada para a separação do Loop do jogo
@@ -203,6 +212,31 @@ void keypress (unsigned char key, int x, int y){
 				vista = 1;
 				jogabilidade.vista = 1;
 			}
+		break;
+
+		case 'u':
+			cx+=1.0f;
+			break;
+		case 'j':
+			cx-=1.0f;
+			break;
+
+		case 'i':
+			cy+=1.0f;
+			break;
+		case 'k':
+			cy-=1.0f;
+			break;
+
+		case 'o':
+			cz+=1.0f;
+			break;
+		case 'l':
+			cz-=1.0f;
+			break;
+		
+		case 'm':
+			printf("x: %f, y: %f, z: %f\n", cx, cy, cz);
 		break;
 
 		case 27:
