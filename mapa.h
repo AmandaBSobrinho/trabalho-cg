@@ -106,12 +106,8 @@ class Mapa{
 
 		glTranslatef(limite - largura_minima,0,0);
 
-		glBegin(GL_POLYGON); 
-		glVertex3f(-largura_minima, (limite), 0);
-		glVertex3f(-largura_minima,-(limite), 0);
-		glVertex3f( largura_minima,-(limite), 0);
-		glVertex3f( largura_minima, (limite), 0);
-		glEnd();
+		glScalef(2*largura_minima, 2*limite, 2*100);
+    	glutSolidCube(1.0f);
 
 		glPopMatrix();
 
@@ -119,13 +115,8 @@ class Mapa{
 
 		glTranslatef(-(limite - largura_minima),0,0);
 
-		glBegin(GL_POLYGON); 
-		glVertex3f(-largura_minima, (limite), 0);
-		glVertex3f(-largura_minima,-(limite), 0);
-		glVertex3f( largura_minima,-(limite), 0);
-		glVertex3f( largura_minima, (limite), 0);
-		glEnd();
-
+		glScalef(2*largura_minima, 2*limite, 2*100);
+    	glutSolidCube(1.0f);
 		glPopMatrix();
 
 

@@ -26,7 +26,7 @@ class Jogador{
 		//posição inicial no centro inferior da tela		
 		pos_x = 1.0f;
 		pos_y = -290.0f;
-		pos_z = 1.0f;
+		pos_z = 20.0f;
 
 		//Definição do limite da tela.
 		limite = s/2;
@@ -93,7 +93,7 @@ class Jogador{
 
 		pos_x = 1.0f;
 		pos_y = -290.0f;
-		pos_z = 1.0f;
+		pos_z = 20.0f;
 
 	}
 	
@@ -101,16 +101,6 @@ class Jogador{
 	void desenhar(){
 
       	glScalef(escala, escala, escala);
-
-		/* caixa preta para teste de colisão */
-      	/*glColor3ub(0,0,0);
-		glBegin(GL_POLYGON); 
-		glVertex3f(-largura/escala,altura/escala, 0.0);
-		glVertex3f(-largura/escala,-altura/escala, 0.0);
-		glVertex3f(largura/escala,-altura/escala, 0.0);
-		glVertex3f(largura/escala,altura/escala, 0.0);
-		glEnd();*/
-
 		
 		glColor3ub(128,128,128); //DEFINE cor (R, G, B e percentual de transparência para o objeto)
 

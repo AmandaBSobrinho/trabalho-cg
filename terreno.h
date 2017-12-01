@@ -82,53 +82,10 @@ class Terreno{
 
 	void desenhar(){
 
-		int z_terreno = 50;
+		int z_terreno = 80;
 
-/*
-    switch(cor){
-      case 0:*/
-		    glColor3ub(0,100,0);
-      /*  break;
-
-      case 1:
-        glColor3ub(100,100,0);
-        break;
-
-      case 2:
-        glColor3ub(0,100,100);
-        break;
-
-      case 3:
-        glColor3ub(100,100,100);
-        break;
-
-      case 4:
-        glColor3ub(100,0,0);
-        break;
-
-      case 5:
-        glColor3ub(0,0,100);
-        break;
-
-      case 6:
-        glColor3ub(100,0,100);
-        break;
-
-      case 7:
-        glColor3ub(0,0,0);
-        break;
-
-		}*/
-    /*
-		glBegin(GL_POLYGON); 
-		glVertex3f(-largura, (altura), z_terreno);
-		glVertex3f(-largura,-(altura), z_terreno);
-		glVertex3f( largura,-(altura), z_terreno);
-		glVertex3f( largura, (altura), z_terreno);
-		glEnd();
-    */
-
-    glScalef(largura, altura, 2*z_terreno);
+    glColor3ub(0,100,0);
+    glScalef(2*largura, 2*altura, 2*z_terreno);
     glutSolidCube(1.0f);
     
   }

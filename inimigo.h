@@ -30,7 +30,7 @@ class Inimigo{
 		//Atualmente todos iniciam no topo da tela e aleatoriamente em x
 		pos_x = aleatorio(60, 30, 10);
 		pos_y = 300.0f;
-		pos_z = 1.0f;
+		pos_z = 20.0f;
 
 		//Definição do limite da tela.
 		limite = s;
@@ -101,7 +101,7 @@ class Inimigo{
 		
 		pos_x = aleatorio(60, 30, 10);
 		pos_y = 300.0f;
-		pos_z = 1.0f;
+		pos_z = 20.0f;
 		
 		velocidade = aleatorio(5, 0, -0.1f);
 		
@@ -110,15 +110,6 @@ class Inimigo{
 	void desenhar_navio(){
 		
 		glScalef(escala, escala, escala);
-
-		/* Caixa preta para teste de colisao
-      	glColor3ub(0,0,0);
-		glBegin(GL_POLYGON); 
-		glVertex3f(-largura/escala,altura/escala, 0.0);
-		glVertex3f(-largura/escala,-altura/escala, 0.0);
-		glVertex3f(largura/escala,-altura/escala, 0.0);
-		glVertex3f(largura/escala,altura/escala, 0.0);
-		glEnd();*/
 
 		glColor3ub(128,128,128); //DEFINE cor (R, G, B e percentual de transparência para o objeto)
 
@@ -257,15 +248,6 @@ class Inimigo{
 
 	void desenhar_helicoptero(){
 		glScalef(escala, escala, escala);
-
-		/*Caixa preta para teste de colisao
-      	glColor3ub(0,0,0);
-		glBegin(GL_POLYGON); 
-		glVertex3f(-largura/escala,altura/escala, 0.0);
-		glVertex3f(-largura/escala,-altura/escala, 0.0);
-		glVertex3f(largura/escala,-altura/escala, 0.0);
-		glVertex3f(largura/escala,altura/escala, 0.0);
-		glEnd();*/
 
     	glColor3ub(135,206,235); //DEFINE cor (R, G, B e percentual de transparência para o objeto)
 
