@@ -136,6 +136,10 @@ class Jogador{
   		glRotatef(90.0f, 1.0f, 0.0f, 0.0f);
   		glTranslatef(0.0,0.0,-3.7);
   		gluCylinder(quadric, 0.5, 0.5, 4, 12, 3);
+  		glPushMatrix();
+      	glTranslatef(0.0,0.0,4.0);
+      	gluDisk(gluNewQuadric(), 0.0, 0.5, 30, 1);
+      	glPopMatrix();
   		
   		/* nariz */
   		glColor3ub(169,169,169);
