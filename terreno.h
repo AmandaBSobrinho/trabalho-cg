@@ -12,20 +12,26 @@ class Terreno{
   float pos_x;
   float pos_y;
 
+  Inimigo inimigos[2];
+
   int cor;
 
 	float escala;
 
   Terreno(){}
 
-	Terreno(int s, InfoT t, float y, int i){
+	Terreno(int s, InfoT t, float y){
 
 		limite = s;
     setDimensao(t.altura, t.largura);
     setPosicao(t.x, y);
     tipo = t.tipo;
+    cor = t.cor;
 
-    cor = i;
+    inimigos[0] = Inimigo(s);
+    inimigos[1] = Inimigo(s);
+
+    Gerar_Inimigos(t.num_inimigos);
 
 	}
 
@@ -48,6 +54,10 @@ class Terreno{
 
 
     atualizar_desenho();
+
+    inimigos[0].movimentar(velocidade);
+    inimigos[1].movimentar(velocidade);
+
     glutPostRedisplay();
 
   }
@@ -76,6 +86,9 @@ class Terreno{
     setDimensao(t.altura, t.largura);
     setPosicao(t.x, pos_y + y);
     tipo = t.tipo;
+    cor = t.cor;
+
+    Gerar_Inimigos(t.num_inimigos);
 
   }
 
@@ -84,12 +97,67 @@ class Terreno{
 
 		int z_terreno = 80;
 
-    glColor3ub(0,100,0);
+    switch(cor){
+      case 0:
+        glColor3ub(0,100,0);
+      break;
+
+      case 1:
+        glColor3ub(100,0,0);
+      break;
+
+      case 2:
+        glColor3ub(0,0,0);
+      break;
+
+      case 3:
+        glColor3ub(0,100,100);
+      break;
+
+      default:
+        glColor3ub(0,100,0);
+      break;
+    }
+
     glScalef(2*largura, 2*altura, 2*z_terreno);
     glutSolidCube(1.0f);
     
   }
 
-	
+  void Gerar_Inimigos(int qnt){
+
+    if(qnt > 0){
+
+      if(qnt != 2){
+        inimigos[0].atividade = 1;
+
+        inimigos[0].pos_x = (tipo * largura) + (int)aleatorio((limite-(tipo*10)-largura - inimigos[0].largura), 0, 1);
+
+        if((int)aleatorio(100, 0, 1)%50 > 0)
+          inimigos[0].pos_x *= (-1);
+
+        inimigos[0].pos_y = pos_y + altura/3;
+      }
+
+      if(qnt != 1){
+        inimigos[1].atividade = 1;
+
+        inimigos[1].pos_x = (tipo * largura) + (int)aleatorio((limite-(tipo*10)-largura - inimigos[1].largura), 0, 1);
+
+        if((int)aleatorio(100, 0, 1)%50 > 0)
+          inimigos[0].pos_x *= (-1);
+        
+        inimigos[1].pos_y = pos_y - altura/3;
+      }
+      
+    }
+
+  }
+
+  //Função para gerar um número aleatorio baseado em 3 parametros
+  float aleatorio(int a, int b, float c){
+    return (float) ((rand() % a + 1) - b  )*c;
+  }
+
 };
 

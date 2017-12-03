@@ -14,6 +14,10 @@ typedef struct InfoTerrenos{
 	float altura;
 	float largura;
 
+	int cor;
+
+	int num_inimigos;
+
 	//interna ou externa	
 	float tipo;
 
@@ -75,17 +79,6 @@ void loop_jogo(){
 	p1.movimentar(mov);
 	tiro.movimentar(mov_tiro, p1.pos_x, p1.pos_y, p1.pos_z);
 
-	for(int i=0; i<map.num_inimigos; i++){
-
-		if(p1.colidir(map.inimigos[i].pos_x, map.inimigos[i].pos_y, map.inimigos[i].largura, map.inimigos[i].altura))
-			resetar();
-
-		if(tiro.colidir(map.inimigos[i].pos_x, map.inimigos[i].pos_y, map.inimigos[i].largura, map.inimigos[i].altura)){
-			map.inimigos[i].reset();
-			jogabilidade.atualizar_pontuacao(map.inimigos[i].tipo_inimigo);
-		}
-	}
-
 	for(int i=0; i<map.num_terrenos; i++){
 
 		if(p1.colidir(
@@ -101,6 +94,26 @@ void loop_jogo(){
 				 map.terrenos[i].largura,
 				 map.terrenos[i].altura))
 			resetar();
+
+		if(p1.colidir(map.terrenos[i].inimigos[0].pos_x, map.terrenos[i].inimigos[0].pos_y, map.terrenos[i].inimigos[0].largura, map.terrenos[i].inimigos[0].altura))
+			resetar();
+
+		if(p1.colidir(map.terrenos[i].inimigos[1].pos_x, map.terrenos[i].inimigos[1].pos_y, map.terrenos[i].inimigos[1].largura, map.terrenos[i].inimigos[1].altura))
+			resetar();
+
+		if(map.terrenos[i].inimigos[0].atividade == 1){
+			if(tiro.colidir(map.terrenos[i].inimigos[0].pos_x, map.terrenos[i].inimigos[0].pos_y, map.terrenos[i].inimigos[0].largura, map.terrenos[i].inimigos[0].altura)){
+				map.terrenos[i].inimigos[0].atividade = 0;
+				jogabilidade.atualizar_pontuacao(map.terrenos[i].inimigos[0].tipo_inimigo);
+			}
+		}
+
+		if(map.terrenos[i].inimigos[1].atividade == 1){
+			if(tiro.colidir(map.terrenos[i].inimigos[1].pos_x, map.terrenos[i].inimigos[1].pos_y, map.terrenos[i].inimigos[1].largura, map.terrenos[i].inimigos[1].altura)){
+				map.terrenos[i].inimigos[1].atividade = 0;
+				jogabilidade.atualizar_pontuacao(map.terrenos[i].inimigos[1].tipo_inimigo);
+			}
+		}
 	}
 
 	if(p1.colidir(
@@ -164,8 +177,6 @@ void DISPLAY (){
 
 int main(int argc,char **argv){
 
-	srand(time(NULL));
-
 	glutInit(&argc, argv);
 
 	glutInitDisplayMode(GLUT_DOUBLE | GLUT_RGB | GLUT_DEPTH);
@@ -191,9 +202,16 @@ void keypress (unsigned char key, int x, int y){
 			p1.movimentando = -1;
 		break;
 
+		case 'w':
+			map.velocidade = map.velocidade*2;
+			break;
+		case 's':
+			map.velocidade = map.velocidade/2;
+			break;
+
 		case 'p':
-			if(map.velocidade == 0.0f)
-				map.velocidade = -3.0f;
+			if(map.velocidade != map.velocidade_padrao)
+				map.velocidade = map.velocidade_padrao;
 			else
 				map.velocidade = 0.0f;
 		break;
@@ -212,31 +230,6 @@ void keypress (unsigned char key, int x, int y){
 				vista = 1;
 				jogabilidade.vista = 1;
 			}
-		break;
-
-		case 'u':
-			cx+=1.0f;
-			break;
-		case 'j':
-			cx-=1.0f;
-			break;
-
-		case 'i':
-			cy+=1.0f;
-			break;
-		case 'k':
-			cy-=1.0f;
-			break;
-
-		case 'o':
-			cz+=1.0f;
-			break;
-		case 'l':
-			cz-=1.0f;
-			break;
-		
-		case 'm':
-			printf("x: %f, y: %f, z: %f\n", cx, cy, cz);
 		break;
 
 		case 27:
@@ -262,6 +255,11 @@ void keyup (unsigned char key, int x, int y) {
 			p1.movimentando = 0;
 			mov = 0.0f;
 		break;
+
+		case 'w':
+		case 's':
+			map.velocidade = map.velocidade_padrao;
+			break;
 
 	}
 

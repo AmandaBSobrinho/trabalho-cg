@@ -22,6 +22,8 @@ class Jogador{
 	int movimentando;
 	
 	Jogador(int s){
+
+		srand(time(NULL));
 		
 		//posição inicial no centro inferior da tela		
 		pos_x = 1.0f;

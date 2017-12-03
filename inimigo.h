@@ -19,6 +19,9 @@ class Inimigo{
 	float largura;
 	float altura;
 
+	//ativo = 1, inativo = 0
+	int atividade;
+
 	//Tipo do inimigo: 1-Navio, 0-Helicoptero
 	int tipo_inimigo;
 
@@ -26,11 +29,7 @@ class Inimigo{
 	
 	Inimigo (int s){
 
-		//Posição inicial do inimigo
-		//Atualmente todos iniciam no topo da tela e aleatoriamente em x
-		pos_x = aleatorio(60, 30, 10);
-		pos_y = 300.0f;
-		pos_z = 20.0f;
+		atividade = 0;
 
 		//Definição do limite da tela.
 		limite = s;
@@ -46,11 +45,17 @@ class Inimigo{
 		largura = 3.0f * escala;
 		altura = 2.5f * escala;
 
-		//Tipo de inimigo, atualmente fixo em 1 = navio
-		tipo_inimigo = 0;
+		//tipo_inimigo = (int)aleatorio(100,0,1);
+		//tipo_inimigo = tipo_inimigo%100;
+		tipo_inimigo = 1;
+
+		if(tipo_inimigo == 0)
+			pos_z = 20.0f;
+		else
+			pos_z = 0.0f;
 		
-	};
-	
+	}
+
 	//Atualiza o desenho, transaladando e/ou rotacionando
 	void atualizar_desenho(){
 
@@ -81,30 +86,18 @@ class Inimigo{
 	
 	//Movimenta o inimigo até o limite da camera
 	void movimentar(float y){
-		
-		pos_y += y;
-		if(pos_y <= -limite){
-			reset();
+
+		if(atividade > 0){
+			pos_y += y;
+			
+			atualizar_desenho();
 		}
-		
-		atualizar_desenho();
 		glutPostRedisplay();
 	}
 	
 	//Função para gerar um número aleatorio baseado em 3 parametros
 	float aleatorio(int a, int b, float c){
 		return (float) ((rand() % a + 1) - b  )*c;
-	}
-	
-	//Reinicializa a posição do inimigo, reutilizando o objeto ja criado
-	void reset(){
-		
-		pos_x = aleatorio(60, 30, 10);
-		pos_y = 300.0f;
-		pos_z = 20.0f;
-		
-		velocidade = aleatorio(5, 0, -0.1f);
-		
 	}
 
 	void desenhar_navio(){
