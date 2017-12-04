@@ -29,7 +29,7 @@ class Mapa{
 
 		num_terrenos = 8;
 
-		velocidade_padrao = -9.0f;
+		velocidade_padrao = -6.0f;
 		velocidade = velocidade_padrao;
 
 		terreno_carregado = 0;

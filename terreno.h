@@ -114,7 +114,7 @@ class Terreno{
 
         inimigos[0].pos_x = (tipo * largura) + (int)aleatorio((limite-(tipo*10)-largura - inimigos[0].largura), 0, 1);
 
-        if((int)aleatorio(100, 0, 1)%50 > 0)
+        if((int)aleatorio(100, 0, 1)/50 > 0)
           inimigos[0].pos_x *= (-1);
 
         inimigos[0].pos_y = pos_y + altura/2;
@@ -125,7 +125,7 @@ class Terreno{
 
         inimigos[1].pos_x = (tipo * largura) + (int)aleatorio((limite-(tipo*10)-largura - inimigos[1].largura), 0, 1);
 
-        if((int)aleatorio(100, 0, 1)%20 > 0)
+        if((int)aleatorio(100, 0, 1)/20 > 0)
           inimigos[0].pos_x *= (-1);
 
         inimigos[1].pos_y = pos_y - altura/2;
@@ -137,11 +137,11 @@ class Terreno{
 
   void Gerar_Combustivel(){
 
-    int aux = (int)aleatorio(100,0,1)%50;
+    int aux = (int)aleatorio(100,0,1)/50;
     if(aux > 0){
-      aux = (tipo * largura) + (int)aleatorio((limite-(tipo*10)-largura - inimigos[1].largura), 0, 1);
-      if((int)aleatorio(100,0,1)%50)
-        comb.setCombustivel(pos_y, aux);
+      aux = (tipo * largura) + (int)aleatorio((limite-(tipo*10)-largura - comb.largura), 0, 1);
+      if((int)aleatorio(100,0,1)/50 > 0)
+        comb.setCombustivel(pos_y, -aux);
       else
         comb.setCombustivel(pos_y, aux);
     }
