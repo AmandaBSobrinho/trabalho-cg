@@ -51,6 +51,19 @@ class Jogabilidade{
         glutPostRedisplay();
     }
 
+    void desenhar_texto (const char *string, float x, float y, float z, int line) {
+
+        glPushMatrix();
+
+        glTranslatef (x,y,z);
+        glScalef (0.2,0.2,0.2);
+        glLineWidth(line);
+        while (*string)
+            glutStrokeCharacter (GLUT_STROKE_ROMAN, *string++);
+
+        glPopMatrix();
+    }
+
     void atualizar_combustivel (){
         if (!tanque_combustivel)
             if (combustivel > -1550)
@@ -64,21 +77,16 @@ class Jogabilidade{
                 combustivel += (0 - combustivel);
         }
 
+        if (combustivel == -1550){
+            glPushMatrix();
+            glColor3ub(255, 0, 0);
+            glScalef (1.2,1.2,1.2);
+            desenhar_texto ("GAME OVER", 0, 0, 0, 3);
+            glPopMatrix();
+        }
+
         desenhar_display();
         glutPostRedisplay();
-    }
-
-    void desenhar_texto (const char *string, float x, float y, float z) {
-
-        glPushMatrix();
-
-        glTranslatef (x,y,z);
-        glScalef (0.2,0.2,0.2);
-        glLineWidth(2);
-        while (*string)
-            glutStrokeCharacter (GLUT_STROKE_ROMAN, *string++);
-
-        glPopMatrix();
     }
 
     // Desenha o display cinza onde a pontuação e o combustível devem ficar
@@ -89,16 +97,24 @@ class Jogabilidade{
         // Quadro cinza
         glColor3ub(128,128,128);
         glBegin(GL_POLYGON);
+        if (vista){
             glVertex3f(-400,-400,100);
             glVertex3f(400,-400,100);
             glVertex3f(400,-300,100);
             glVertex3f(-400,-300,100);
+        }
+        else {
+            glVertex3f(-300,200,0);
+            glVertex3f(300,200,100);
+            glVertex3f(300,200,100);
+            glVertex3f(-300,200,0);
+        }
         glEnd();
 
         // Desenho da pontuação
         glColor3ub(255, 255, 0);
         sprintf(escreve_pontos, "%d", pontos);
-        desenhar_texto (escreve_pontos, -10, -325, 120);
+        desenhar_texto (escreve_pontos, -10, -325, 120, 2);
 
         // Desenho do combustível
         glColor3ub(0,0,0);
@@ -109,11 +125,11 @@ class Jogabilidade{
             glVertex3f(-100,-335,120);
         glEnd();
 
-        desenhar_texto ("F", 65, -360, 120);
+        desenhar_texto ("F", 65, -360, 120, 2);
 
-        desenhar_texto ("1/2", -25, -360, 120);
+        desenhar_texto ("1/2", -25, -360, 120, 2);
 
-        desenhar_texto ("E", -85, -360, 120);
+        desenhar_texto ("E", -85, -360, 120, 2);
     }
 
     void desenhar_medidor (float x){
