@@ -20,6 +20,12 @@ class Jogabilidade{
         // Flag que define a vista (superior ou atrás do avião) para desenhar o display no plano certo
         vista = 1;
     };
+
+    void reset(){
+
+        combustivel = 0;
+
+    }
     
     // Faz a contagem de pontos em relação aos objetos destruídos
     void atualizar_pontuacao (int tipo_objeto_destruido){

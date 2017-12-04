@@ -66,6 +66,7 @@ void resetar(){
 
 	map.reset();
 	p1.reset();
+	jogabilidade.reset();
 	
 }
 

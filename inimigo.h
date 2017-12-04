@@ -109,7 +109,7 @@ class Inimigo{
 		glPushMatrix();
 
 	   	/* base */
-      	glBegin(GL_POLYGON); 
+      	glBegin(GL_POLYGON);
       	glVertex3f(-2.5,-1.5,0.0);
       	glVertex3f(2.5,-1.5,0.0);
       	glVertex3f(2.5,1.5,0.0);

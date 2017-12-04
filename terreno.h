@@ -49,9 +49,7 @@ class Terreno{
 
   void movimentar(float velocidade){
 
-
     pos_y += velocidade;
-
 
     atualizar_desenho();
 
@@ -91,7 +89,6 @@ class Terreno{
     Gerar_Inimigos(t.num_inimigos);
 
   }
-
 
 	void desenhar(){
 
@@ -136,7 +133,7 @@ class Terreno{
         if((int)aleatorio(100, 0, 1)%50 > 0)
           inimigos[0].pos_x *= (-1);
 
-        inimigos[0].pos_y = pos_y + altura/3;
+        inimigos[0].pos_y = pos_y + altura/2;
       }
 
       if(qnt != 1){
@@ -146,8 +143,8 @@ class Terreno{
 
         if((int)aleatorio(100, 0, 1)%50 > 0)
           inimigos[0].pos_x *= (-1);
-        
-        inimigos[1].pos_y = pos_y - altura/3;
+
+        inimigos[1].pos_y = pos_y - altura/2;
       }
       
     }
