@@ -13,6 +13,7 @@ class Terreno{
   float pos_y;
 
   Inimigo inimigos[2];
+  Combustivel comb;
 
   int cor;
 
@@ -30,6 +31,10 @@ class Terreno{
 
     inimigos[0] = Inimigo(s);
     inimigos[1] = Inimigo(s);
+
+    comb = Combustivel(s);
+
+    Gerar_Combustivel();
 
     Gerar_Inimigos(t.num_inimigos);
 
@@ -55,6 +60,8 @@ class Terreno{
 
     inimigos[0].movimentar(velocidade);
     inimigos[1].movimentar(velocidade);
+
+    comb.movimentar(velocidade);
 
     glutPostRedisplay();
 
@@ -86,6 +93,7 @@ class Terreno{
     tipo = t.tipo;
     cor = t.cor;
 
+    Gerar_Combustivel();
     Gerar_Inimigos(t.num_inimigos);
 
   }
@@ -141,12 +149,25 @@ class Terreno{
 
         inimigos[1].pos_x = (tipo * largura) + (int)aleatorio((limite-(tipo*10)-largura - inimigos[1].largura), 0, 1);
 
-        if((int)aleatorio(100, 0, 1)%50 > 0)
+        if((int)aleatorio(100, 0, 1)%20 > 0)
           inimigos[0].pos_x *= (-1);
 
         inimigos[1].pos_y = pos_y - altura/2;
       }
       
+    }
+
+  }
+
+  void Gerar_Combustivel(){
+
+    int aux = (int)aleatorio(100,0,1)%50;
+    if(aux > 0){
+      aux = (tipo * largura) + (int)aleatorio((limite-(tipo*10)-largura - inimigos[1].largura), 0, 1);
+      if((int)aleatorio(100,0,1)%50)
+        comb.setCombustivel(pos_y, aux);
+      else
+        comb.setCombustivel(pos_y, aux);
     }
 
   }

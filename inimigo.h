@@ -85,10 +85,10 @@ class Inimigo{
 	}
 	
 	//Movimenta o inimigo até o limite da camera
-	void movimentar(float y){
+	void movimentar(float velocidade_y){
 
 		if(atividade > 0){
-			pos_y += y;
+			pos_y += velocidade_y;
 			
 			atualizar_desenho();
 		}

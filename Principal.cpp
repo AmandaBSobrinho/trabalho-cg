@@ -26,6 +26,7 @@ typedef struct InfoTerrenos{
 
 #include "jogador.h"
 #include "inimigo.h"
+#include "combustivel.h"
 #include "terreno.h"
 #include "mapa.h"
 #include "tiro.h"
@@ -113,6 +114,18 @@ void loop_jogo(){
 			if(tiro.colidir(map.terrenos[i].inimigos[1].pos_x, map.terrenos[i].inimigos[1].pos_y, map.terrenos[i].inimigos[1].largura, map.terrenos[i].inimigos[1].altura)){
 				map.terrenos[i].inimigos[1].atividade = 0;
 				jogabilidade.atualizar_pontuacao(map.terrenos[i].inimigos[1].tipo_inimigo);
+			}
+		}
+
+		if(map.terrenos[i].comb.atividade == 1){
+			if(tiro.colidir(map.terrenos[i].comb.pos_x, map.terrenos[i].comb.pos_y, map.terrenos[i].comb.largura, map.terrenos[i].comb.altura)){
+				map.terrenos[i].comb.atividade = 0;
+				jogabilidade.atualizar_pontuacao(2);
+			}
+
+			if(p1.colidir(map.terrenos[i].comb.pos_x, map.terrenos[i].comb.pos_y, map.terrenos[i].comb.largura, map.terrenos[i].comb.altura)){
+				map.terrenos[i].comb.atividade = 0;
+				jogabilidade.tanque_combustivel = 1;
 			}
 		}
 	}

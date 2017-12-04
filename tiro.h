@@ -91,30 +91,24 @@ class Tiro{
     //Cálculo da colisão
     bool colidir(float x_inimigo, float y_inimigo, float l_inimigo, float a_inimigo){
 
-        /*if(pos_y + 3.0 >= y_inimigo - a_inimigo)
-            if(pos_x + (1.0*escala) >= x_inimigo - l_inimigo && pos_x - (1.0*escala) <= x_inimigo + l_inimigo ){
-                colidiu = 1;
-                return true;
-            }
+        if(atirou){
+            int teste = pos_y - y_inimigo;
 
-        return false;*/
+    		if(teste < 0)
+    			teste *= -1;
 
-        int teste = pos_y - y_inimigo;
+    		if(teste <= a_inimigo){
+    			teste = pos_x - x_inimigo;
 
-		if(teste < 0)
-			teste *= -1;
+    			if(teste < 0)
+    				teste *=-1;
 
-		if(teste <= a_inimigo){
-			teste = pos_x - x_inimigo;
-
-			if(teste < 0)
-				teste *=-1;
-
-			if(teste < largura + l_inimigo){
-				colidiu = 1;
-				return true;
-			}
-		}
+    			if(teste < largura + l_inimigo){
+    				colidiu = 1;
+    				return true;
+    			}
+    		}
+        }
 
 		return false;
 
