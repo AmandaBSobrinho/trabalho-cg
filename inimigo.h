@@ -42,7 +42,7 @@ class Inimigo{
 		escala = 10.0f;
 
 		//Cálculo de largura e altura baseada na escala
-		largura = 3.0f * escala;
+		largura = 3.5f * escala;
 		altura = 2.5f * escala;
 
 		//tipo_inimigo = (int)aleatorio(100,0,1);

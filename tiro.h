@@ -103,7 +103,7 @@ class Tiro{
     			if(teste < 0)
     				teste *=-1;
 
-    			if(teste < largura + l_inimigo){
+    			if(teste < l_inimigo){
     				colidiu = 1;
     				return true;
     			}

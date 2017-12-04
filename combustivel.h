@@ -24,7 +24,7 @@ class Combustivel{
 
 		escala = 20.0f;
 
-		largura = 4.2f*escala;
+		largura = 1.0f*escala;
 		altura = 1.4f*escala;
 
 		pos_z = 10.0f;
@@ -61,6 +61,10 @@ class Combustivel{
 
 	void desenhar(){
 		glScalef(escala, escala, escala);
+    glRotatef(90, 0, 0, 1);
+
+    glPushMatrix();
+
 
 		glPushMatrix();
     	glTranslatef(-1.5, 0, 0);
@@ -103,6 +107,7 @@ class Combustivel{
     	glRotatef(90.0f, 0.0f, 1.0f, 0.0f);
     	gluDisk(gluNewQuadric(), 0.0, 0.5, 30, 1);
     	glPopMatrix();
+      glPopMatrix();
 	}
 
 	void desenhar_casa(){

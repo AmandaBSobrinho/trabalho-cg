@@ -58,8 +58,10 @@ class Jogabilidade{
         
         if (tanque_combustivel){
             tanque_combustivel = 0;
-            if (combustivel <= -40)
-                combustivel += 40;
+            if (combustivel <= -200)
+                combustivel += 200;
+            else
+                combustivel += (0 - combustivel);
         }
 
         desenhar_display();
