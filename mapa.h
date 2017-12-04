@@ -113,10 +113,19 @@ class Mapa{
 		glColor3ub(0,0,200);
 
 		glBegin(GL_POLYGON); 
-		glVertex3f(-limite, (limite), 0);
-		glVertex3f(-limite,-(limite), 0);
-		glVertex3f( limite,-(limite), 0);
-		glVertex3f( limite, (limite), 0);
+		glVertex3f(-1000, 2000, 0);
+		glVertex3f(-1000,-2000, 0);
+		glVertex3f( 1000,-2000, 0);
+		glVertex3f( 1000, 2000, 0);
+		glEnd();
+
+		glColor3ub(0,191,255);
+
+		glBegin(GL_POLYGON); 
+		glVertex3f(-2000, 1500, 1000);
+		glVertex3f(-2000, 1500, -1000);
+		glVertex3f( 2000, 1500, -1000);
+		glVertex3f( 2000, 1500, 1000);
 		glEnd();
 
 	}

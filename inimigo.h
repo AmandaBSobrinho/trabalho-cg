@@ -205,10 +205,10 @@ class Inimigo{
 
       	glPushMatrix();
       	glBegin(GL_POLYGON); 
-      	glVertex3f(-2.0,1.0,2.5);
-      	glVertex3f(2.0,1.0,2.5);
-      	glVertex3f(2.0,1.0,3.75);
-      	glVertex3f(-2.0,1.0,3.75);
+      	glVertex3f(-2.0,1.1,2.5);
+      	glVertex3f(2.0,1.1,2.5);
+      	glVertex3f(2.0,1.1,3.75);
+      	glVertex3f(-2.0,1.1,3.75);
       	glEnd();
       	glPopMatrix();*/
 

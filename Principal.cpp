@@ -43,7 +43,7 @@ int vista = 1;
 float fovy = 45.0f;
 float aspect = 1.0f;
 float zNear = 10.0f;
-float zFar = 1000.0f;
+float zFar = 2000.0f;
 
 float cx = 0;
 float cy = -435;

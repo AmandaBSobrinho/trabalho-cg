@@ -24,7 +24,7 @@ class Combustivel{
 
 		escala = 20.0f;
 
-		largura = 1.0f*escala;
+		largura = 0.5f*escala;
 		altura = 1.4f*escala;
 
 		pos_z = 10.0f;
