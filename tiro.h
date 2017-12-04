@@ -51,7 +51,20 @@ class Tiro{
         movimentando = 0;
         atirou = 0;
         colidiu = 0;
-    };
+    }
+
+    void reiniciar(float pos_x_jogador, float pos_y_jogador, float pos_z_jogador){
+
+        //Posição inicial do tiro (dentro do avião)
+        pos_x = pos_x_jogador;
+        pos_y = pos_y_jogador + 15.0;
+        pos_z = pos_z_jogador;
+
+        //Estado inicial de movimentação = 0-parado
+        movimentando = 0;
+        atirou = 0;
+        colidiu = 0;
+    }
     
     //Atualiza o desenho
     void atualizar_desenho(){

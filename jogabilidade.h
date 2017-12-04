@@ -7,6 +7,8 @@ class Jogabilidade{
     char escreve_pontos[20];
     int vista;
 
+    int vidas;
+
     Jogabilidade(){
         // Variável que conta a pontuação
         pontos = 0;
@@ -19,10 +21,29 @@ class Jogabilidade{
 
         // Flag que define a vista (superior ou atrás do avião) para desenhar o display no plano certo
         vista = 1;
+
+        vidas = 3;
     };
+
+    void reiniciar(){
+        // Variável que conta a pontuação
+        pontos = 0;
+        
+        // Variável que mede o nível de combustível (cheio = 0)
+        combustivel = 0;
+
+        // Flag que indica que um tanque de combustível foi encontrado
+        tanque_combustivel = 0;
+
+        // Flag que define a vista (superior ou atrás do avião) para desenhar o display no plano certo
+        //vista = 1;
+
+        vidas = 3;
+    }
 
     void reset(){
 
+        vidas--;
         combustivel = 0;
 
     }
@@ -77,14 +98,6 @@ class Jogabilidade{
                 combustivel += (0 - combustivel);
         }
 
-        if (combustivel == -1550){
-            glPushMatrix();
-            glColor3ub(255, 0, 0);
-            glScalef (1.2,1.2,1.2);
-            desenhar_texto ("GAME OVER", 0, 0, 0, 3);
-            glPopMatrix();
-        }
-
         desenhar_display();
         glutPostRedisplay();
     }
@@ -92,23 +105,26 @@ class Jogabilidade{
     // Desenha o display cinza onde a pontuação e o combustível devem ficar
     void desenhar_display(){
 
+        glPushMatrix();
+
+        if(vista == 0){
+
+            glScalef(0.15f, 0.15f, 0.15f);
+            glTranslatef(0, -2050, 0);
+            glRotatef(90, 1, 0, 0);
+            glTranslatef(0, 400, 0);
+
+        }
+
         desenhar_medidor(0.1*combustivel);
         
         // Quadro cinza
         glColor3ub(128,128,128);
         glBegin(GL_POLYGON);
-        if (vista){
             glVertex3f(-400,-400,100);
             glVertex3f(400,-400,100);
             glVertex3f(400,-300,100);
             glVertex3f(-400,-300,100);
-        }
-        else {
-            glVertex3f(-300,200,0);
-            glVertex3f(300,200,100);
-            glVertex3f(300,200,100);
-            glVertex3f(-300,200,0);
-        }
         glEnd();
 
         // Desenho da pontuação
@@ -130,6 +146,23 @@ class Jogabilidade{
         desenhar_texto ("1/2", -25, -360, 120, 2);
 
         desenhar_texto ("E", -85, -360, 120, 2);
+        glPopMatrix();
+    }
+
+    void Mensagem_Game_Over(){
+
+        glPushMatrix();
+        glColor3ub(255, 0, 0);
+        glScalef (2,2,2);
+        desenhar_texto ("GAME OVER", -80, 0, 0, 3);
+        sprintf(escreve_pontos, "%d", pontos);
+
+        glColor3ub(255, 255, 0);
+        glScalef (1,1,1);
+        desenhar_texto ("Pontos:", -50, -40, 0, 3);
+        desenhar_texto (escreve_pontos, -50, -80, 0, 3);
+        glPopMatrix();
+
     }
 
     void desenhar_medidor (float x){

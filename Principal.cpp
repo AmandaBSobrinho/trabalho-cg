@@ -59,6 +59,7 @@ float mov_tiro = 0.0f;
 
 void keypress (unsigned char key, int x, int y);
 void keyup (unsigned char key, int x, int y);
+void reiniciar (unsigned char key, int x, int y);
 
 
 void resetar(){
@@ -76,6 +77,7 @@ void loop_jogo(){
 	glutKeyboardFunc(keypress);
 	glutKeyboardUpFunc(keyup);
 
+if(jogabilidade.vidas > 0){
 	p1.movimentar(mov);
 	tiro.movimentar(mov_tiro, p1.pos_x, p1.pos_y, p1.pos_z);
 
@@ -142,10 +144,19 @@ void loop_jogo(){
 			 map.limite))
 		resetar();
 
+	if(jogabilidade.combustivel <= -1550)
+		resetar();
+
 	jogabilidade.desenhar_display();
 	jogabilidade.atualizar_combustivel();
 
 	map.atualizar();
+} else {
+	vista = 1;
+	jogabilidade.vista = 1;
+	jogabilidade.Mensagem_Game_Over();
+	glutKeyboardFunc(reiniciar);
+}
 
 }
 
@@ -272,6 +283,24 @@ void keyup (unsigned char key, int x, int y) {
 		case 's':
 			map.velocidade = map.velocidade_padrao;
 			break;
+
+	}
+
+	glutPostRedisplay();
+
+}
+
+//Key up utilizado para encerrar uma ação iniciada pelo jogador
+void reiniciar (unsigned char key, int x, int y) {
+
+	switch(key){
+
+		case 32:
+			p1.reset();
+			map.reiniciar();
+			tiro.reiniciar(p1.pos_x, p1.pos_y, p1.pos_z);
+			jogabilidade.reiniciar();
+		break;
 
 	}
 

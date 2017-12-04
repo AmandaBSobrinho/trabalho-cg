@@ -44,6 +44,22 @@ class Mapa{
 
 	}
 
+	void reiniciar(){
+
+		velocidade = velocidade_padrao;
+
+		terreno_carregado = 0;
+		Gerar_Mapa_Inicial();
+
+		for(i=0; i<num_terrenos; i++){
+
+			terrenos[i] = Terreno(limite, InfTerrenos[flag_carregado][i], limite_inferior + (i * (2.0f * InfTerrenos[flag_carregado][i].altura)));
+			terreno_carregado++;
+
+		}
+
+	}
+
 	void reset(){
 
 		terreno_carregado = 0;
