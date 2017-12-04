@@ -130,7 +130,6 @@ class Mapa{
 			InfTerrenos[flag][i].largura = largura_minima*3;
 
 			InfTerrenos[flag][i].tipo = 0;
-			InfTerrenos[flag][i].cor = 1;
 
 			Gerar_Inimigo(flag, i);
 
@@ -148,8 +147,6 @@ class Mapa{
 				InfTerrenos[flag][i].tipo = 0;
 			else
 				InfTerrenos[flag][i].tipo = 1;
-
-			InfTerrenos[flag][i].cor = 0;
 
 			Gerar_Inimigo(flag, i);
 
@@ -179,8 +176,6 @@ class Mapa{
 			else
 				InfTerrenos[flag][i].tipo = 1;
 
-			InfTerrenos[flag][i].cor = 0;
-
 			Gerar_Inimigo(flag, i);;
 
 			InfTerrenos[flag][i].x = limite - InfTerrenos[1][i].largura/2;
@@ -197,7 +192,6 @@ class Mapa{
 			InfTerrenos[flag][i].altura = limite/2;
 			InfTerrenos[flag][i].largura = largura_minima + 10 * (i-18);
 			InfTerrenos[flag][i].tipo = 0;
-			InfTerrenos[flag][i].cor = 3;
 
 			Gerar_Inimigo(flag, i);
 
@@ -215,7 +209,6 @@ class Mapa{
 			InfTerrenos[flag][i].largura = largura_minima;
 
 			InfTerrenos[flag][i].tipo = 0;
-			InfTerrenos[flag][i].cor = 0;
 
 			Gerar_Inimigo(flag, i);
 

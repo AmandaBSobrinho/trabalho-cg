@@ -14,8 +14,6 @@ typedef struct InfoTerrenos{
 	float altura;
 	float largura;
 
-	int cor;
-
 	int num_inimigos;
 
 	//interna ou externa	

@@ -15,8 +15,6 @@ class Terreno{
   Inimigo inimigos[2];
   Combustivel comb;
 
-  int cor;
-
 	float escala;
 
   Terreno(){}
@@ -27,7 +25,6 @@ class Terreno{
     setDimensao(t.altura, t.largura);
     setPosicao(t.x, y);
     tipo = t.tipo;
-    cor = t.cor;
 
     inimigos[0] = Inimigo(s);
     inimigos[1] = Inimigo(s);
@@ -91,7 +88,6 @@ class Terreno{
     setDimensao(t.altura, t.largura);
     setPosicao(t.x, pos_y + y);
     tipo = t.tipo;
-    cor = t.cor;
 
     Gerar_Combustivel();
     Gerar_Inimigos(t.num_inimigos);
@@ -102,27 +98,7 @@ class Terreno{
 
 		int z_terreno = 80;
 
-    switch(cor){
-      case 0:
-        glColor3ub(0,100,0);
-      break;
-
-      case 1:
-        glColor3ub(100,0,0);
-      break;
-
-      case 2:
-        glColor3ub(0,0,0);
-      break;
-
-      case 3:
-        glColor3ub(0,100,100);
-      break;
-
-      default:
-        glColor3ub(0,100,0);
-      break;
-    }
+    glColor3ub(0,100,0);
 
     glScalef(2*largura, 2*altura, 2*z_terreno);
     glutSolidCube(1.0f);
