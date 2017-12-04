@@ -36,7 +36,7 @@ class Jogabilidade{
         tanque_combustivel = 0;
 
         // Flag que define a vista (superior ou atrás do avião) para desenhar o display no plano certo
-        //vista = 1;
+        vista = 1;
 
         vidas = 3;
     }
@@ -68,7 +68,6 @@ class Jogabilidade{
                 break;
         }
 
-        desenhar_display();
         glutPostRedisplay();
     }
 
@@ -85,7 +84,7 @@ class Jogabilidade{
         glPopMatrix();
     }
 
-    void atualizar_combustivel (){
+    void atualizar_combustivel (float x){
         if (!tanque_combustivel)
             if (combustivel > -1550)
                 combustivel--;
@@ -98,17 +97,18 @@ class Jogabilidade{
                 combustivel += (0 - combustivel);
         }
 
-        desenhar_display();
+        desenhar_display(x);
         glutPostRedisplay();
     }
 
     // Desenha o display cinza onde a pontuação e o combustível devem ficar
-    void desenhar_display(){
+    void desenhar_display(float x){
 
         glPushMatrix();
 
         if(vista == 0){
 
+            glTranslatef(x, 0, 0);
             glScalef(0.15f, 0.15f, 0.15f);
             glTranslatef(0, -2050, 0);
             glRotatef(90, 1, 0, 0);
@@ -162,6 +162,8 @@ class Jogabilidade{
         desenhar_texto ("Pontos:", -50, -40, 0, 3);
         desenhar_texto (escreve_pontos, -50, -80, 0, 3);
         glPopMatrix();
+
+        glutPostRedisplay();
 
     }
 

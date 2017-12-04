@@ -45,9 +45,8 @@ class Inimigo{
 		largura = 3.5f * escala;
 		altura = 2.5f * escala;
 
-		//tipo_inimigo = (int)aleatorio(100,0,1);
-		//tipo_inimigo = tipo_inimigo%100;
-		tipo_inimigo = 1;
+		tipo_inimigo = (int)aleatorio(100,0,1);
+		tipo_inimigo = tipo_inimigo/50;
 
 		if(tipo_inimigo == 0)
 			pos_z = 20.0f;

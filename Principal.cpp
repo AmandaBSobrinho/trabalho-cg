@@ -147,8 +147,8 @@ if(jogabilidade.vidas > 0){
 	if(jogabilidade.combustivel <= -1550)
 		resetar();
 
-	jogabilidade.desenhar_display();
-	jogabilidade.atualizar_combustivel();
+	jogabilidade.desenhar_display(p1.pos_x-(4*p1.movimentando));
+	jogabilidade.atualizar_combustivel(p1.pos_x-(4*p1.movimentando));
 
 	map.atualizar();
 } else {
